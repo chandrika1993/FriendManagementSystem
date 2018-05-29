@@ -1,0 +1,284 @@
+package com.friendmanagement.service.impl;
+
+import static org.mockito.Matchers.anyString;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.PersistenceException;
+
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.dao.EmptyResultDataAccessException;
+
+import com.friendmanagement.dao.CommonFriendListDao;
+import com.friendmanagement.dto.InformationDto;
+import com.friendmanagement.dto.UserProfileDto;
+import com.friendmanagement.exception.TechnicalException;
+import com.friendmanagement.model.Friends;
+import com.friendmanagement.model.UserProfile;
+import com.friendmanagement.service.CommonFriendListService;
+
+/**
+ * <PRE>
+ * Class name       : CommonFriendListServiceImplTest
+ * Description      : Test class which tests the CommonFriendListServiceImpl methods. 
+ * Author           : Capgemini.
+ * </PRE>
+ */
+@RunWith(MockitoJUnitRunner.class)
+public class CommonFriendListServiceImplTest {
+
+    @InjectMocks
+    private CommonFriendListService commonFriendListService =
+            new CommonFriendListServiceImpl();
+
+    @Mock
+    private CommonFriendListDao commonFriendListDao;
+
+    private static UserProfile userProfile = new UserProfile();
+    private static UserProfileDto userProfileDto = new UserProfileDto();
+    private Long count = 1L;
+    private static List<Friends> friends = new ArrayList<>();
+    private static Friends friends2 = new Friends();
+    private static String email = "abc@gmail.com";
+    private static List<String> list2 = new ArrayList<>();
+    private static Set<String> list = new HashSet<>();
+    private static Set<Friends> listOfFriends = new HashSet<>();
+    private static InformationDto informationDto = new InformationDto();
+
+    /**
+     * Initializes the objects before the test execution.
+     * 
+     */
+    @BeforeClass
+    public static void init() {
+        friends2.setEmailId(email);
+        userProfile.setUserEmailId(email);
+        listOfFriends.add(friends2);
+        userProfile.setListOfFriends(listOfFriends);
+        userProfileDto.setEmailId(email);
+        list2.add(friends2.getEmailId());
+        list2.add(friends2.getEmailId());
+        userProfileDto.setFriends(list2);
+        friends.add(friends2);
+        for (int i = 0; i < friends.size(); i++) {
+            list.add(friends.get(i).getEmailId());
+        }
+        informationDto.setFriends(list);
+    }
+
+
+    /**
+     * Tests method getFriends.
+     * 
+     * Expectation is that returned satusCode equals 200.
+     * 
+     * @throws TechnicalException
+     */
+    @Test
+    public void testGetFriendsSuccess() throws TechnicalException {
+        Mockito.when(
+                this.commonFriendListDao.getUserProfileTotalCount(anyString()))
+                .thenReturn(this.count);
+        Mockito.when(this.commonFriendListDao.getUserProfile(anyString()))
+                .thenReturn(userProfile);
+        Assert.assertEquals(this.commonFriendListService
+                .getFriends(userProfileDto).getFriends().size(), 0);
+    }
+
+    /**
+     * Tests method getFriends.
+     * 
+     * Expectation is that returned satusCode equals 404.
+     * 
+     * @throws TechnicalException
+     * 
+     */
+    @Test(expected = TechnicalException.class)
+    public void testGetFriendsTechnicalException() throws TechnicalException {
+        Long count = 0L;
+        Mockito.when(
+                this.commonFriendListDao.getUserProfileTotalCount(anyString()))
+                .thenReturn(count);
+        Assert.assertEquals(this.commonFriendListService
+                .getFriends(userProfileDto).getCount(),
+                informationDto.getCount());
+    }
+
+    /**
+     * Tests method getFriends.
+     * 
+     * Expectation is that returned satusCode equals 503.
+     * 
+     * @throws TechnicalException
+     * 
+     */
+    @SuppressWarnings("unchecked")
+    @Test(expected = TechnicalException.class)
+    public void testGetFriendsTechnicalException1() throws TechnicalException {
+        informationDto.setSuccess(false);
+        Mockito.when(
+                this.commonFriendListDao.getUserProfileTotalCount(anyString()))
+                .thenReturn(this.count);
+        Mockito.when(this.commonFriendListDao.getUserProfile(anyString()))
+                .thenThrow(TechnicalException.class);
+        Assert.assertEquals(this.commonFriendListService
+                .getFriends(userProfileDto).isSuccess(), false);
+    }
+
+    /**
+     * Tests method getFriends.
+     * 
+     * Expectation is that returned satusCode equals 404.
+     * 
+     * @throws TechnicalException
+     * 
+     */
+    @SuppressWarnings("unchecked")
+    @Test(expected = TechnicalException.class)
+    public void testGetFriendsPersistanceException() throws TechnicalException {
+        Mockito.when(
+                this.commonFriendListDao.getUserProfileTotalCount(anyString()))
+                .thenReturn(this.count);
+        Mockito.when(this.commonFriendListDao.getUserProfile(anyString()))
+                .thenThrow(PersistenceException.class);
+        Assert.assertEquals(this.commonFriendListService
+                .getFriends(userProfileDto).isSuccess(), false);
+    }
+
+    /**
+     * Tests method getFriends.
+     * 
+     * Expectation is that returned satusCode equals 404.
+     * 
+     * @throws TechnicalException
+     * 
+     */
+    @SuppressWarnings("unchecked")
+    @Test(expected = TechnicalException.class)
+    public void testGetFriendsEmptyResultDataAccessException()
+            throws TechnicalException {
+        Mockito.when(
+                this.commonFriendListDao.getUserProfileTotalCount(anyString()))
+                .thenReturn(this.count);
+        Mockito.when(this.commonFriendListDao.getUserProfile(anyString()))
+                .thenThrow(EmptyResultDataAccessException.class);
+        Assert.assertEquals(this.commonFriendListService
+                .getFriends(userProfileDto).isSuccess(), false);
+    }
+
+
+    /**
+     * Tests method getCommonFriends.
+     * 
+     * Expectation is that returned satusCode equals 200.
+     * 
+     * @throws TechnicalException
+     */
+    @Test
+    public void testGetCommonFriendsSuccess() throws TechnicalException {
+        Mockito.when(
+                this.commonFriendListDao.getUserProfileTotalCount(anyString()))
+                .thenReturn(this.count);
+        Mockito.when(this.commonFriendListDao.getUserProfile(anyString()))
+                .thenReturn(userProfile);
+        Assert.assertEquals(
+                this.commonFriendListService.getCommonFriends(userProfileDto)
+                        .getFriends().size(),
+                informationDto.getFriends().size());
+    }
+
+    /**
+     * Tests method getCommonFriends.
+     * 
+     * Expectation is that returned satusCode equals 404.
+     * 
+     * @throws TechnicalException
+     * 
+     */
+    @Test(expected = TechnicalException.class)
+    public void testGetCommonFriendsTechnicalException()
+            throws TechnicalException {
+        Long count = 0L;
+        Mockito.when(
+                this.commonFriendListDao.getUserProfileTotalCount(anyString()))
+                .thenReturn(count);
+        Mockito.when(this.commonFriendListDao.getUserProfile(anyString()))
+                .thenReturn(userProfile);
+        Assert.assertEquals(this.commonFriendListService
+                .getCommonFriends(userProfileDto).getCount(),
+                informationDto.getCount());
+    }
+
+    /**
+     * Tests method getCommonFriends.
+     * 
+     * Expectation is that returned satusCode equals 404.
+     * 
+     * @throws TechnicalException
+     * 
+     */
+    @SuppressWarnings("unchecked")
+    @Test(expected = TechnicalException.class)
+    public void testGetCommonFriendsPeristenceException()
+            throws TechnicalException {
+        Mockito.when(
+                this.commonFriendListDao.getUserProfileTotalCount(anyString()))
+                .thenReturn(this.count);
+        Mockito.when(this.commonFriendListDao.getUserProfile(anyString()))
+                .thenThrow(PersistenceException.class);
+        Assert.assertEquals(this.commonFriendListService
+                .getCommonFriends(userProfileDto).isSuccess(), false);
+    }
+
+    /**
+     * Tests method getCommonFriends.
+     * 
+     * Expectation is that returned satusCode equals 404.
+     * 
+     * @throws TechnicalException
+     * 
+     */
+    @SuppressWarnings("unchecked")
+    @Test(expected = TechnicalException.class)
+    public void testGetCommonFriendsEmptyResultDataAccessException()
+            throws TechnicalException {
+        Mockito.when(
+                this.commonFriendListDao.getUserProfileTotalCount(anyString()))
+                .thenReturn(this.count);
+        Mockito.when(this.commonFriendListDao.getUserProfile(anyString()))
+                .thenThrow(EmptyResultDataAccessException.class);
+        Assert.assertEquals(this.commonFriendListService
+                .getCommonFriends(userProfileDto).isSuccess(), false);
+    }
+
+    /**
+     * Tests method getCommonFriends.
+     * 
+     * Expectation is that returned satusCode equals 503.
+     * 
+     * @throws TechnicalException
+     * 
+     */
+    @SuppressWarnings("unchecked")
+    @Test(expected = TechnicalException.class)
+    public void testGetCommonFriendsTechnicalException1()
+            throws TechnicalException {
+        Mockito.when(
+                this.commonFriendListDao.getUserProfileTotalCount(anyString()))
+                .thenReturn(this.count);
+        Mockito.when(this.commonFriendListDao.getUserProfile(anyString()))
+                .thenThrow(TechnicalException.class);
+        Assert.assertEquals(this.commonFriendListService
+                .getCommonFriends(userProfileDto).isSuccess(), false);
+    }
+}
