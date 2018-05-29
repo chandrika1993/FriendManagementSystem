@@ -42,7 +42,7 @@ public class FriendCreationServiceImpl implements FriendCreationService {
 
 
     @Override
-    public InformationDto createConnection(UserProfileDto userProfileDto)
+    public InformationDto createFriendConnection(UserProfileDto userProfileDto)
             throws TechnicalException {
         log.debug("FriendsManagementServiceImpl createConnection :: Start");
         InformationDto informationDto = new InformationDto();

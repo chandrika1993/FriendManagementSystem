@@ -46,10 +46,11 @@ public class FriendCreationController {
      * 
      * @return ResponseEntity response
      */
-    @RequestMapping(path = "/createConnection", method = RequestMethod.POST,
+    @RequestMapping(path = "/createFriendConnection",
+            method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<RespData> createConnection(
+    public ResponseEntity<RespData> createFriendConnection(
             @RequestBody UserProfileDto userProfileDto) {
         log.info("FriendManagementController createFriendConnection:: Start");
         RespData respData = null;
@@ -57,7 +58,7 @@ public class FriendCreationController {
         InformationDto informationDto = null;
         try {
             informationDto = this.friendsManagementService
-                    .createConnection(userProfileDto);
+                    .createFriendConnection(userProfileDto);
             responseEntity = this.requestResponseHandler
                     .getHttpsSuccessStatusCode(informationDto);
             log.info("Friend Connection Created Successfully between :"

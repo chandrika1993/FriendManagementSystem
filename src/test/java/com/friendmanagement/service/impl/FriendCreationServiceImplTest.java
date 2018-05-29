@@ -82,16 +82,15 @@ public class FriendCreationServiceImplTest {
 
     }
 
-
     /**
-     * Tests method createConnection.
+     * Tests method createFriendConnection.
      * 
      * Expectation is that returned satusCode equals 200.
      * 
      * @throws TechnicalException
      */
     @Test
-    public void testCreateConnectionSuccess() throws TechnicalException {
+    public void testCreateFriendConnectionSuccess() throws TechnicalException {
         informationDto.setSuccess(true);
         Mockito.when(this.friendsManagementDao.countFindUsers(anyString()))
                 .thenReturn(this.count);
@@ -99,33 +98,35 @@ public class FriendCreationServiceImplTest {
                 .thenReturn(userProfile);
         Mockito.doNothing().when(this.friendsManagementDao)
                 .updateUser(any(UserProfile.class));
-        Assert.assertEquals(this.friendCreationService
-                .createConnection(userProfileDto).isSuccess(),
+        Assert.assertEquals(
+                this.friendCreationService
+                        .createFriendConnection(userProfileDto).isSuccess(),
                 informationDto.isSuccess());
     }
 
     /**
-     * Tests method createConnection.
+     * Tests method createFriendConnection.
      * 
      * Expectation is that returned satusCode equals 200.
      * 
      * @throws TechnicalException
      */
     @Test
-    public void testCreateConnectionSuccess2() throws TechnicalException {
+    public void testCreateFriendConnectionSuccess2() throws TechnicalException {
         Long count = 0L;
         informationDto.setSuccess(true);
         Mockito.when(this.friendsManagementDao.countFindUsers(anyString()))
                 .thenReturn(count);
         Mockito.doNothing().when(this.friendsManagementDao)
                 .insertUser(any(UserProfile.class));
-        Assert.assertEquals(this.friendCreationService
-                .createConnection(userProfileDto).isSuccess(),
+        Assert.assertEquals(
+                this.friendCreationService
+                        .createFriendConnection(userProfileDto).isSuccess(),
                 informationDto.isSuccess());
     }
 
     /**
-     * Tests method createConnection.
+     * Tests method createFriendConnection.
      * 
      * Expectation is that returned satusCode equals 503.
      * 
@@ -134,17 +135,19 @@ public class FriendCreationServiceImplTest {
      */
     @SuppressWarnings("unchecked")
     @Test(expected = TechnicalException.class)
-    public void testCreateConnectionTechnicalException1()
+    public void testCreateFriendConnectionTechnicalException1()
             throws TechnicalException {
         informationDto.setSuccess(false);
         Mockito.when(this.friendsManagementDao.countFindUsers(anyString()))
                 .thenThrow(PersistenceException.class);
-        Assert.assertEquals(this.friendCreationService
-                .createConnection(userProfileDto).isSuccess(), false);
+        Assert.assertEquals(
+                this.friendCreationService
+                        .createFriendConnection(userProfileDto).isSuccess(),
+                false);
     }
 
     /**
-     * Tests method createConnection.
+     * Tests method createFriendConnection.
      * 
      * Expectation is that returned satusCode equals 401.
      * 
@@ -152,15 +155,18 @@ public class FriendCreationServiceImplTest {
      * 
      */
     @Test(expected = TechnicalException.class)
-    public void testCreateConnectionUnAuthorized() throws TechnicalException {
+    public void testCreateFriendConnectionUnAuthorized()
+            throws TechnicalException {
         UserProfileDto userProfileDto = new UserProfileDto();
         List<String> friends = new ArrayList<>();
         friends.add(email);
         friends.add(email);
         userProfileDto.setFriends(friends);
         informationDto.setSuccess(false);
-        Assert.assertEquals(this.friendCreationService
-                .createConnection(userProfileDto).isSuccess(), false);
+        Assert.assertEquals(
+                this.friendCreationService
+                        .createFriendConnection(userProfileDto).isSuccess(),
+                false);
     }
 }
 

@@ -61,26 +61,26 @@ public class FriendCreationControllerTest {
 
 
     /**
-     * Tests method createConnection.
+     * Tests method createFriendConnection.
      * 
      * Expectation is that returned satusCode equals 200.
      * 
      * @throws TechnicalException
      */
     @Test
-    public void testCreateConnectionSuccess() throws TechnicalException {
-        Mockito.when(this.friendsManagementService.createConnection(any()))
+    public void testCreateFriendConnectionSuccess() throws TechnicalException {
+        Mockito.when(
+                this.friendsManagementService.createFriendConnection(any()))
                 .thenReturn(informationDto);
         Mockito.when(
                 this.requestResponseHandler.getHttpsSuccessStatusCode(any()))
                 .thenReturn(responseEntity);
-        Assert.assertEquals(
-                this.friendCreationController.createConnection(userProfileDto),
-                responseEntity);
+        Assert.assertEquals(this.friendCreationController
+                .createFriendConnection(userProfileDto), responseEntity);
     }
 
     /**
-     * Tests method createConnection.
+     * Tests method createFriendConnection.
      * 
      * Expectation is that returned satusCode equals 500.
      * 
@@ -88,16 +88,19 @@ public class FriendCreationControllerTest {
      * 
      */
     @Test
-    public void testCreateConnectionTechnicalException() throws TechnicalException {
-        Mockito.when(this.friendsManagementService.createConnection(any()))
+    public void testCreateFriendConnectionTechnicalException()
+            throws TechnicalException {
+        Mockito.when(
+                this.friendsManagementService.createFriendConnection(any()))
                 .thenThrow(sendTechnicalException());
-        Assert.assertEquals(this.friendCreationController
-                .createConnection(userProfileDto).getStatusCode(),
+        Assert.assertEquals(
+                this.friendCreationController
+                        .createFriendConnection(userProfileDto).getStatusCode(),
                 HttpStatus.GATEWAY_TIMEOUT);
     }
 
     /**
-     * Tests method createConnection.
+     * Tests method createFriendConnection.
      * 
      * Expectation is that returned satusCode equals 504.
      * 
@@ -106,13 +109,17 @@ public class FriendCreationControllerTest {
      */
     @SuppressWarnings("unchecked")
     @Test
-    public void testCreateConnectionException() throws TechnicalException {
-        Mockito.when(this.friendsManagementService.createConnection(any()))
+    public void testCreateFriendConnectionException()
+            throws TechnicalException {
+        Mockito.when(
+                this.friendsManagementService.createFriendConnection(any()))
                 .thenThrow(NullPointerException.class);
-        Assert.assertEquals(this.friendCreationController
-                .createConnection(userProfileDto).getStatusCode(),
+        Assert.assertEquals(
+                this.friendCreationController
+                        .createFriendConnection(userProfileDto).getStatusCode(),
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
     /**
      * Sets http error code in TechnicalException.
      * 

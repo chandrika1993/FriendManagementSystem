@@ -8,7 +8,7 @@ import com.friendmanagement.exception.TechnicalException;
 /**
  * <PRE>
  * Interface name   : FriendsManagementService
- * Description      : Service interface have methods which allow user to fetch data from Database.
+ * Description      : Service interface have methods which allow user to create friend Connection.
  * Author           : Capgemini.
  * </PRE>
  */
@@ -21,7 +21,6 @@ public interface FriendCreationService {
      * @throws FunctionalException
      * @throws TechnicalException
      */
-    InformationDto createConnection(UserProfileDto userProfileDto)
+    InformationDto createFriendConnection(UserProfileDto userProfileDto)
             throws TechnicalException;
-
 }
