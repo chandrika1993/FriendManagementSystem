@@ -130,6 +130,13 @@ public class CommonFriendListServiceImpl implements CommonFriendListService {
                         }
                     }
                 }
+                if (listsFriends.isEmpty()) {
+                    throw new TechnicalException(
+                            FriendsConstants.DATA_NOT_FOUND,
+                            FriendsConstants.NO_COMMON_FRIENDS,
+                            FriendsConstants.DATA_NOT_FOUND,
+                            HttpStatus.NOT_FOUND, null);
+                }
                 setOfFriends.addAll(listsFriends);
             } else {
                 informationDto.setSuccess(false);
