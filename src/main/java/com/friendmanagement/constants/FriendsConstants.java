@@ -36,4 +36,5 @@ public class FriendsConstants {
     public static final String EMAIL_NOT_FOUND = "Email Id not Found";
     public static final String SAME_EMAILS = "Same Emails Not Allowed";
     public static final String UNAUTHORIZED_CODE = "401";
+    public static final String NO_COMMON_FRIENDS = "No Common Friends";
 }
