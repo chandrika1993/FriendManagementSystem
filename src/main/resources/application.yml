@@ -1,0 +1,7 @@
+
+dbUsername: root
+dbPassword: root
+dbServerUrl: jdbc:mysql://localhost:3306/friendmanagementsystem?autoReconnect=true&useSSL=false
+dbDriverClass: com.mysql.cj.jdbc.Driver
+dbServerDialect: org.hibernate.dialect.MySQL5Dialect
+
