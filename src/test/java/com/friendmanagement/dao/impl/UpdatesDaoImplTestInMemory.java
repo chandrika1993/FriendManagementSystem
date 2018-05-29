@@ -33,7 +33,7 @@ import com.friendmanagement.model.UserProfile;
         initializers = ConfigFileApplicationContextInitializer.class)
 @WebAppConfiguration
 @Transactional
-public class UpdatesDaoImplTest {
+public class UpdatesDaoImplTestInMemory {
 
     @Autowired
     private UpdatesDao updatesDao;

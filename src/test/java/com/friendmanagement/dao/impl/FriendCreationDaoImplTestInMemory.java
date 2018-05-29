@@ -34,7 +34,7 @@ import com.friendmanagement.model.UserProfile;
         TransactionalTestExecutionListener.class })
 @WebAppConfiguration
 @Transactional
-public class FriendCreationDaoImplTest {
+public class FriendCreationDaoImplTestInMemory {
 
     @Autowired
     private FriendCreationDao friendCreationDao;
