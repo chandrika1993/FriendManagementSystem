@@ -26,7 +26,7 @@ This is an application with a need to build its own social network, "Friends Man
 # Database
 	Below is the simple SQL Design Diagram used for the application .
 	
-	 		![Alt text](sql/db_design/SQLDB_Design.png?raw=true "SQLDB_Design")
+![SQLDB_Design](../sql/db_design/SQLDB_Design.png?raw=true "SQLDB_Design")
 
 # List of REST Endpoints and Explanation
 
@@ -35,15 +35,15 @@ This is an application with a need to build its own social network, "Friends Man
 	•	Path : /createFriendConnection
 	
 	•	Input :
-	{
+		{
 		"userName":"example",
 		"emailId":" example@gmail.com",
 		"contactNo":"453457834",
 		"friends":["example@gmail.com","abc@gmail.com"]
-	}
+		}
 
 	•	Sample Output :
-	{	"success": true }
+		{	"success": true }
 	
 	•	Defined Errors :
 			504 : Occurs when Database Error occurs.
@@ -53,22 +53,22 @@ This is an application with a need to build its own social network, "Friends Man
 	•	Path : /getFriends
 
 	•	Input :
-	{
+		{
 		"userName":"example",
 		"emailId":" example@gmail.com",
 		"contactNo":"453457834",
 		"friends":[“example@gmail.com”]
-	}
+		}
 	
 	•	Output :
-	{
-	"success": true,
-	"friends":[
-		"abc@gmail.com",
-		"xyz@gmail.com"
-	],
-	"count":2
-	}
+		{
+		"success": true,
+		"friends":[
+			"abc@gmail.com",
+			"xyz@gmail.com"
+		],
+		"count":2
+		}
 
 	•	Defined Errors :
 			401 : Unauthorized Access -The two email addresses in the input are the same.
@@ -77,44 +77,42 @@ This is an application with a need to build its own social network, "Friends Man
 	
 	4.	Returns list of common friends between two Email Ids.
 	
-	•	Path : /getCommonFriends
-	•	Input :
-
-	{
-		"userName":"example",
-		"emailId":" example@gmail.com",
-		"contactNo":"453457834",
-		"friends":["example@gmail.com","abc@gmail.com"]
-	}
-	•	Output :
-
-	{
-	"success": true,
-	"friends":[
-		"abc@gmail.com",
-		"xyz@gmail.com"
-	],
-	"count":2
-	}
-	•	Defined Errors :
-			401 : Unauthorized Access - The two emails in the json are same.
-			404 : Email Id not Found i.e. Persons given by the email do not exist.
-			504 : Occurs when Database Error occurs.
+		•	Path : /getCommonFriends
+	
+		•	Input :
+			{
+			"userName":"example",
+			"emailId":" example@gmail.com",
+			"contactNo":"453457834",
+			"friends":["example@gmail.com","abc@gmail.com"]
+			}
+			
+		•	Output :
+			{
+			"success": true,
+			"friends":[
+					"abc@gmail.com",
+					"xyz@gmail.com"
+						],
+			"count":2
+			}
+		•	Defined Errors :
+				401 : Unauthorized Access - The two emails in the json are same.
+				404 : Email Id not Found i.e. Persons given by the email do not exist.
+				504 : Occurs when Database Error occurs.
 	
 	5.	Person subscribe for Email Updates from another Person
 	
-	•	Path : /subscribeForEmailUpdates
+		•	Path : /subscribeForEmailUpdates
 	
-	•	Input :
-	{
-	"requestor":"abc@gmail.com",
-	"target":"xyz@gmail.com"
-	}
+		•	Input :
+			{
+			"requestor":"abc@gmail.com",
+			"target":"xyz@gmail.com"
+			}
 	
-	•	Output :
-	{
-	"success": true
-	}
+		•	Output :
+			{"success": true}
 	
 	•	Defined Errors :
 			401 : Unauthorized Access -The two emails in the json are same.
@@ -125,13 +123,14 @@ This is an application with a need to build its own social network, "Friends Man
 	6.	Person block updates from another Person
 	
 	•	Path : /blockUpdates
+	
 	•	Input :
 		{
 		"requestor":"example1@example.com",
 		"target":"example2@example.com"
 		}
 	•	Output :
-		{"success": true	}
+		{ "success": true }
 		
 	•	Defined Errors :
 			401 : Unauthorized Access - The two emails in the JSON are same.
