@@ -1,6 +1,17 @@
 package com.friendmanagement.constants;
 
+/**
+ * <PRE>
+ * Class name       : FriendsConstants
+ * Description      : Common file to store all the constants
+ * Author           : Capgemini.
+ * </PRE>
+ */
 public class FriendsConstants {
+
+    private FriendsConstants() {
+        super();
+    }
 
     public static final String DATA_NOT_FOUND = "404";
     public static final String DATABASE_ERROR = "504";

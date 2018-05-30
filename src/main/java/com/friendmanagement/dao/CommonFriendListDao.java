@@ -1,13 +1,12 @@
 package com.friendmanagement.dao;
 
-
 import com.friendmanagement.model.Friends;
 import com.friendmanagement.model.UserProfile;
 
 /**
  * <PRE>
  * Interface name   : CommonFriendListDao
- * Description      : Dao have method definition for common friends Management  
+ * Description      : Dao have method definition for fetching friends details.  
  * Author           : Capgemini.
  * </PRE>
  */

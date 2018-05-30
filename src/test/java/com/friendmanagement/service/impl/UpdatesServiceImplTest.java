@@ -21,6 +21,7 @@ import com.friendmanagement.dao.impl.UpdatesDaoImpl;
 import com.friendmanagement.dto.BlockDto;
 import com.friendmanagement.dto.InformationDto;
 import com.friendmanagement.dto.SubscriptionDto;
+import com.friendmanagement.dto.SuccessStatusDto;
 import com.friendmanagement.exception.TechnicalException;
 import com.friendmanagement.model.BlockStatus;
 import com.friendmanagement.model.Friends;
@@ -54,6 +55,7 @@ public class UpdatesServiceImplTest {
     private static Set<Friends> listOfFriends = new HashSet<>();
     private static Set<BlockStatus> blockList = new HashSet<>();
     private static Subscription subscription = new Subscription();
+    private static SuccessStatusDto successStatusDto = new SuccessStatusDto();
     private static Friends friends2 = new Friends();
     private Long count = 1l;
 
@@ -93,14 +95,14 @@ public class UpdatesServiceImplTest {
         blockStatus2.setEmailId("emailId@dfgf.com");
         blockStatus.add(blockStatus2);
         userProfile.setBlockList(blockStatus);
-        informationDto.setSuccess(true);
+        successStatusDto.setSuccess(true);
         Mockito.when(this.updatesDao.countFindUsers(anyString()))
                 .thenReturn(this.count);
         Mockito.when(this.updatesDao.findUsers(anyString()))
                 .thenReturn(userProfile);
         Assert.assertEquals(this.updatesService
                 .subscribeForEmailUpdates(subscriptionDto).isSuccess(),
-                informationDto.isSuccess());
+                successStatusDto.isSuccess());
     }
 
     /**
@@ -116,10 +118,10 @@ public class UpdatesServiceImplTest {
         String emailId = "abc@gmail.com";
         subscriptionDto.setRequestor(emailId);
         subscriptionDto.setTarget(emailId);
-        informationDto.setSuccess(false);
+        successStatusDto.setSuccess(false);
         Assert.assertEquals(this.updatesService
                 .subscribeForEmailUpdates(subscriptionDto).isSuccess(),
-                informationDto.isSuccess());
+                successStatusDto.isSuccess());
     }
 
     /**
@@ -134,7 +136,7 @@ public class UpdatesServiceImplTest {
     @Test(expected = TechnicalException.class)
     public void testSubscribeForEmailUpdatesTechnicalException()
             throws TechnicalException {
-        informationDto.setSuccess(false);
+        successStatusDto.setSuccess(false);
         Mockito.when(this.updatesDao.countFindUsers(anyString()))
                 .thenThrow(IllegalArgumentException.class);
         Assert.assertEquals(this.updatesService
@@ -153,7 +155,7 @@ public class UpdatesServiceImplTest {
     public void testSubscribeForEmailUpdatesDataNotFound()
             throws TechnicalException {
         Long count = 0l;
-        informationDto.setSuccess(false);
+        successStatusDto.setSuccess(false);
         Mockito.when(this.updatesDao.countFindUsers(anyString()))
                 .thenReturn(count);
         Assert.assertEquals(this.updatesService
@@ -183,13 +185,14 @@ public class UpdatesServiceImplTest {
         UserProfile userProfile = new UserProfile();
         userProfile.setListOfFriends(listOfFriends);
         userProfile.setBlockList(blockList);
-        informationDto.setSuccess(false);
+        userProfile.setEmailSubscriptionList(emailSubscriptionList);
+        successStatusDto.setSuccess(true);
         Mockito.when(this.updatesDao.countFindUsers(anyString()))
                 .thenReturn(count);
         Mockito.when(this.updatesDao.findUsers(anyString()))
                 .thenReturn(userProfile);
         Assert.assertEquals(this.updatesService
-                .subscribeForEmailUpdates(subscriptionDto).isSuccess(), false);
+                .subscribeForEmailUpdates(subscriptionDto).isSuccess(), true);
     }
 
 
@@ -205,11 +208,11 @@ public class UpdatesServiceImplTest {
     @Test(expected = TechnicalException.class)
     public void testSubscribeForEmailUpdatesPersistanceException()
             throws TechnicalException {
-        InformationDto informationDto = new InformationDto();
+        SuccessStatusDto successStatusDto = new SuccessStatusDto();
         SubscriptionDto subscriptionDto = new SubscriptionDto();
         subscriptionDto.setRequestor("asdfdf");
         subscriptionDto.setTarget("sdgf");
-        informationDto.setSuccess(false);
+        successStatusDto.setSuccess(false);
         Mockito.when(this.updatesDao.countFindUsers(anyString()))
                 .thenReturn(this.count);
         Mockito.when(this.updatesDao.findUsers(anyString()))
@@ -313,18 +316,17 @@ public class UpdatesServiceImplTest {
     @Test
     public void testGetEmailsWithSubscriptionSuccess()
             throws TechnicalException {
-        informationDto.setSuccess(true);
         blockStatus2.setEmailId("emailId@dfgf.com");
         blockStatus.add(blockStatus2);
         userProfile.setBlockList(blockStatus);
-        informationDto.setSuccess(true);
+        successStatusDto.setSuccess(true);
         Mockito.when(this.updatesDao.countFindUsers(anyString()))
                 .thenReturn(this.count);
         Mockito.when(this.updatesDao.findUsers(anyString()))
                 .thenReturn(userProfile);
         Assert.assertEquals(this.updatesService
                 .getEmailsWithSubscription(blockDto).isSuccess(),
-                informationDto.isSuccess());
+                successStatusDto.isSuccess());
     }
 
     /**
@@ -339,7 +341,7 @@ public class UpdatesServiceImplTest {
     @Test(expected = TechnicalException.class)
     public void testGetEmailsWithSubscriptionTechnicalException()
             throws TechnicalException {
-        informationDto.setSuccess(false);
+        successStatusDto.setSuccess(false);
         Mockito.when(this.updatesDao.countFindUsers(anyString()))
                 .thenThrow(PersistenceException.class);
         Assert.assertEquals(this.updatesService
@@ -374,7 +376,7 @@ public class UpdatesServiceImplTest {
         friends.setEmailId("sdgfsdg");
         listOfFriends.add(friends);
         userProfile.setListOfFriends(listOfFriends);
-        informationDto.setSuccess(false);
+        successStatusDto.setSuccess(false);
         Mockito.when(this.updatesDao.countFindUsers(anyString()))
                 .thenReturn(count);
         Mockito.when(this.updatesDao.findUsers(anyString()))
@@ -395,7 +397,7 @@ public class UpdatesServiceImplTest {
     public void testGetEmailsWithSubscriptionDataNotFound()
             throws TechnicalException {
         Long count = 0l;
-        informationDto.setSuccess(false);
+        successStatusDto.setSuccess(false);
         Mockito.when(this.updatesDao.countFindUsers(anyString()))
                 .thenReturn(count);
         Assert.assertEquals(this.updatesService

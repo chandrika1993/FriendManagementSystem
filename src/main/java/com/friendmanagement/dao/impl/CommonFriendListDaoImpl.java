@@ -19,7 +19,7 @@ import com.friendmanagement.model.UserProfile;
 /**
  * <PRE>
  * Class name       : CommonFriendListDaoImpl
- * Description      : Implementation dao class for list of friend functionality.
+ * Description      : Implementation dao class for list of friends functionality.
  * Author           : Capgemini.
  * </PRE>
  */
@@ -50,7 +50,6 @@ public class CommonFriendListDaoImpl extends BaseDao<Object>
 
     }
 
-
     @Override
     public Long getUserProfileTotalCount(String emailId) {
         log.debug(" CommonFriendListDaoImpl getUserProfileTotalCount :: Start");
@@ -73,13 +72,13 @@ public class CommonFriendListDaoImpl extends BaseDao<Object>
     public void insertUserProfile(UserProfile userProfile) {
         log.debug(" CommonFriendListDaoImpl insertUserProfile :: Start");
         this.entityManager.persist(userProfile);
-        log.debug(" CommonFriendListDaoImpl insertUserProfile :: Start");
+        log.debug(" CommonFriendListDaoImpl insertUserProfile :: End");
     }
 
     @Override
     public void insertFriendsProfile(Friends friends) {
         log.debug(" CommonFriendListDaoImpl insertFriendsProfile :: Start");
         this.entityManager.persist(friends);
-        log.debug(" CommonFriendListDaoImpl insertFriendsProfile :: Start");
+        log.debug(" CommonFriendListDaoImpl insertFriendsProfile :: End");
     }
 }

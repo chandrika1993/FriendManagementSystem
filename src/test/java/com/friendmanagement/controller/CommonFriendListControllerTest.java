@@ -1,7 +1,6 @@
 package com.friendmanagement.controller;
 
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -17,9 +16,7 @@ import org.springframework.http.ResponseEntity;
 import com.friendmanagement.dto.InformationDto;
 import com.friendmanagement.dto.UserProfileDto;
 import com.friendmanagement.exception.TechnicalException;
-import com.friendmanagement.model.RespData;
 import com.friendmanagement.service.CommonFriendListService;
-import com.friendmanagement.util.RequestResponseHandler;
 
 /**
  * <PRE>
@@ -35,17 +32,12 @@ public class CommonFriendListControllerTest {
             new CommonFriendListController();
 
     @Mock
-    private RequestResponseHandler requestResponseHandler;
-
-    @Mock
     private CommonFriendListService commonFriendListService;
 
     private static InformationDto informationDto = new InformationDto();
     private static UserProfileDto userProfileDto = new UserProfileDto();
-    private static Object responseBody = null;
-    private static RespData responseData = new RespData(responseBody, null);
-    private static ResponseEntity<RespData> responseEntity =
-            new ResponseEntity<>(responseData, HttpStatus.OK);
+    private static ResponseEntity<InformationDto> responseEntity =
+            new ResponseEntity<>(informationDto, HttpStatus.OK);
 
     /**
      * Initializes the objects before the test execution.
@@ -69,11 +61,9 @@ public class CommonFriendListControllerTest {
     public void testGetFriendsSuccess() throws TechnicalException {
         Mockito.when(this.commonFriendListService.getFriends(any()))
                 .thenReturn(informationDto);
-        Mockito.when(this.requestResponseHandler
-                .getHttpsSuccessStatusCode(anyString()))
-                .thenReturn(responseEntity);
-        Assert.assertEquals(this.commonFriendListController
-                .getFriends(userProfileDto).getStatusCode(), HttpStatus.OK);
+        Assert.assertEquals(
+                this.commonFriendListController.getFriends(userProfileDto),
+                responseEntity);
     }
 
     /**
@@ -120,9 +110,6 @@ public class CommonFriendListControllerTest {
     public void testGetCommonFriendsSuccess() throws TechnicalException {
         Mockito.when(this.commonFriendListService.getCommonFriends(any()))
                 .thenReturn(informationDto);
-        Mockito.when(this.requestResponseHandler
-                .getHttpsSuccessStatusCode(anyString()))
-                .thenReturn(responseEntity);
         Assert.assertEquals(this.commonFriendListController
                 .getCommonFriends(userProfileDto).getStatusCode(),
                 HttpStatus.OK);

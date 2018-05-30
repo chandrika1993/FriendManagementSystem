@@ -13,7 +13,6 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import com.friendmanagement.constants.FriendsConstants;
 
-
 /**
  * <PRE>
  * Class name       : MicroServiceConfiguration

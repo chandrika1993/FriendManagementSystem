@@ -17,7 +17,7 @@ import com.friendmanagement.model.UserProfile;
 
 /**
  * <PRE>
- * Class name       : FriendsManagementDaoImpl
+ * Class name       : FriendCreationDaoImpl
  * Description      : Implementation dao class for friend management functionality.
  * Author           : Capgemini.
  * </PRE>

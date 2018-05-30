@@ -34,7 +34,7 @@ public class Subscription {
     @Column(name = "subscriptionStatus", length = 256, updatable = false)
     private Character subscriptionStatus;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "userProfileId", referencedColumnName = "userProfileId")
     private UserProfile userProfile;
 

@@ -32,7 +32,7 @@ public class Friends {
             nullable = false)
     private String emailId;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "userProfileId", referencedColumnName = "userProfileId")
     private UserProfile userProfile;
 
@@ -59,5 +59,4 @@ public class Friends {
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
     }
-
 }

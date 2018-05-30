@@ -16,11 +16,10 @@ import org.springframework.http.ResponseEntity;
 import com.friendmanagement.dto.BlockDto;
 import com.friendmanagement.dto.InformationDto;
 import com.friendmanagement.dto.SubscriptionDto;
+import com.friendmanagement.dto.SuccessStatusDto;
 import com.friendmanagement.exception.TechnicalException;
-import com.friendmanagement.model.RespData;
 import com.friendmanagement.model.ResponseError;
 import com.friendmanagement.service.UpdatesService;
-import com.friendmanagement.util.RequestResponseHandler;
 
 /**
  * <PRE>
@@ -36,18 +35,16 @@ public class UpdatesControllerTest {
     private UpdatesController updatesController = new UpdatesController();
 
     @Mock
-    private RequestResponseHandler requestResponseHandler;
-
-    @Mock
     private UpdatesService updatesService;
 
     private static InformationDto informationDto = new InformationDto();
+    private static SuccessStatusDto successStatusDto = new SuccessStatusDto();
     private static SubscriptionDto subscriptionDto = new SubscriptionDto();
     private static BlockDto blockDto = new BlockDto();
-    private static Object responseBody = null;
-    private static RespData responseData = new RespData(responseBody, null);
-    private static ResponseEntity<RespData> responseEntity =
-            new ResponseEntity<>(responseData, HttpStatus.OK);
+    private static ResponseEntity<InformationDto> responseEntity =
+            new ResponseEntity<>(informationDto, HttpStatus.OK);
+    private static ResponseEntity<SuccessStatusDto> responseEntitySuccess =
+            new ResponseEntity<>(successStatusDto, HttpStatus.OK);
 
     /**
      * Initializes the objects before the test execution.
@@ -56,6 +53,7 @@ public class UpdatesControllerTest {
     @BeforeClass
     public static void init() {
         informationDto.setSuccess(true);
+        successStatusDto.setSuccess(true);
         blockDto.setSender("ssss@gmail.com");
         blockDto.setText("asfasdf");
         informationDto.setFriends(null);
@@ -73,13 +71,11 @@ public class UpdatesControllerTest {
     @Test
     public void testSubscribeForEmailUpdatesSuccess()
             throws TechnicalException {
+        successStatusDto.setSuccess(true);
         Mockito.when(this.updatesService.subscribeForEmailUpdates(any()))
-                .thenReturn(informationDto);
-        Mockito.when(
-                this.requestResponseHandler.getHttpsSuccessStatusCode(any()))
-                .thenReturn(responseEntity);
-        Assert.assertEquals(this.updatesController
-                .subscribeForEmailUpdates(subscriptionDto), responseEntity);
+                .thenReturn(successStatusDto);
+        Assert.assertEquals(this.updatesController.subscribeForEmailUpdates(
+                subscriptionDto), responseEntitySuccess);
     }
 
     /**
@@ -95,8 +91,6 @@ public class UpdatesControllerTest {
             throws TechnicalException {
         Mockito.when(this.updatesService.subscribeForEmailUpdates(any()))
                 .thenThrow(sendTechnicalException());
-        Mockito.when(this.requestResponseHandler.setExceptionError(null))
-                .thenReturn(null);
         Assert.assertEquals(this.updatesController
                 .subscribeForEmailUpdates(subscriptionDto).getStatusCode(),
                 HttpStatus.GATEWAY_TIMEOUT);
@@ -116,12 +110,8 @@ public class UpdatesControllerTest {
             throws TechnicalException {
         ResponseError responseError = new ResponseError();
         responseError.setCode(HttpStatus.INTERNAL_SERVER_ERROR.toString());
-        RespData respData = new RespData();
-        respData.setResponseError(responseError);
         Mockito.when(this.updatesService.subscribeForEmailUpdates(any()))
                 .thenThrow(Exception.class);
-        Mockito.when(this.requestResponseHandler.setExceptionError(null))
-                .thenReturn(responseError);
         Assert.assertEquals(this.updatesController
                 .subscribeForEmailUpdates(subscriptionDto).getStatusCode(),
                 HttpStatus.INTERNAL_SERVER_ERROR);
@@ -137,13 +127,10 @@ public class UpdatesControllerTest {
     @Test
     public void testBlockUpdatesSuccess() throws TechnicalException {
         Mockito.when(this.updatesService.blockUpdates(any()))
-                .thenReturn(informationDto);
-        Mockito.when(
-                this.requestResponseHandler.getHttpsSuccessStatusCode(any()))
-                .thenReturn(responseEntity);
+                .thenReturn(successStatusDto);
         Assert.assertEquals(
                 this.updatesController.blockUpdates(subscriptionDto),
-                responseEntity);
+                responseEntitySuccess);
     }
 
     /**
@@ -158,8 +145,6 @@ public class UpdatesControllerTest {
     public void testBlockUpdatesTechnicalException() throws TechnicalException {
         Mockito.when(this.updatesService.blockUpdates(any()))
                 .thenThrow(sendTechnicalException());
-        Mockito.when(this.requestResponseHandler.setExceptionError(null))
-                .thenReturn(null);
         Assert.assertEquals(this.updatesController.blockUpdates(subscriptionDto)
                 .getStatusCode(), HttpStatus.GATEWAY_TIMEOUT);
     }
@@ -177,12 +162,8 @@ public class UpdatesControllerTest {
     public void testBlockUpdatesException() throws TechnicalException {
         ResponseError responseError = new ResponseError();
         responseError.setCode(HttpStatus.INTERNAL_SERVER_ERROR.toString());
-        RespData respData = new RespData();
-        respData.setResponseError(responseError);
         Mockito.when(this.updatesService.blockUpdates(any()))
                 .thenThrow(Exception.class);
-        Mockito.when(this.requestResponseHandler.setExceptionError(null))
-                .thenReturn(responseError);
         Assert.assertEquals(this.updatesController.blockUpdates(subscriptionDto)
                 .getStatusCode(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -199,9 +180,6 @@ public class UpdatesControllerTest {
             throws TechnicalException {
         Mockito.when(this.updatesService.getEmailsWithSubscription(any()))
                 .thenReturn(informationDto);
-        Mockito.when(
-                this.requestResponseHandler.getHttpsSuccessStatusCode(any()))
-                .thenReturn(responseEntity);
         Assert.assertEquals(
                 this.updatesController.getEmailsWithSubscription(blockDto),
                 responseEntity);
@@ -220,8 +198,6 @@ public class UpdatesControllerTest {
             throws TechnicalException {
         Mockito.when(this.updatesService.getEmailsWithSubscription(any()))
                 .thenThrow(sendTechnicalException());
-        Mockito.when(this.requestResponseHandler.setExceptionError(null))
-                .thenReturn(null);
         Assert.assertEquals(this.updatesController
                 .getEmailsWithSubscription(blockDto).getStatusCode(),
                 HttpStatus.GATEWAY_TIMEOUT);
@@ -241,17 +217,12 @@ public class UpdatesControllerTest {
             throws TechnicalException {
         ResponseError responseError = new ResponseError();
         responseError.setCode(HttpStatus.INTERNAL_SERVER_ERROR.toString());
-        RespData respData = new RespData();
-        respData.setResponseError(responseError);
         Mockito.when(this.updatesService.getEmailsWithSubscription(any()))
                 .thenThrow(Exception.class);
-        Mockito.when(this.requestResponseHandler.setExceptionError(null))
-                .thenReturn(responseError);
         Assert.assertEquals(this.updatesController
                 .getEmailsWithSubscription(blockDto).getStatusCode(),
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
 
     /**
      * Sets http error code in TechnicalException.

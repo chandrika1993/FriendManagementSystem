@@ -1,6 +1,6 @@
 package com.friendmanagement.service;
 
-import com.friendmanagement.dto.InformationDto;
+import com.friendmanagement.dto.SuccessStatusDto;
 import com.friendmanagement.dto.UserProfileDto;
 import com.friendmanagement.exception.FunctionalException;
 import com.friendmanagement.exception.TechnicalException;
@@ -17,10 +17,10 @@ public interface FriendCreationService {
     /**
      * This method creates friend connection between 2 email addresses.
      * 
-     * @return InformationDto
+     * @return SuccessStatusDto
      * @throws FunctionalException
      * @throws TechnicalException
      */
-    InformationDto createFriendConnection(UserProfileDto userProfileDto)
+    SuccessStatusDto createFriendConnection(UserProfileDto userProfileDto)
             throws TechnicalException;
 }

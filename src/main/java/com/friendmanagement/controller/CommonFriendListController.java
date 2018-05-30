@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.friendmanagement.dto.InformationDto;
 import com.friendmanagement.dto.UserProfileDto;
 import com.friendmanagement.exception.TechnicalException;
-import com.friendmanagement.model.RespData;
 import com.friendmanagement.service.CommonFriendListService;
-import com.friendmanagement.util.RequestResponseHandler;
 
 /**
  * <PRE>
@@ -36,9 +34,6 @@ public class CommonFriendListController {
     private static Logger log = LogManager.getLogger();
 
     @Autowired
-    private RequestResponseHandler requestResponseHandler;
-
-    @Autowired
     private CommonFriendListService commonFriendListService;
 
     /**
@@ -50,31 +45,28 @@ public class CommonFriendListController {
     @RequestMapping(path = "/getFriends", method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<RespData> getFriends(
+    public ResponseEntity<InformationDto> getFriends(
             @RequestBody UserProfileDto userProfileDto) {
         log.debug("CommonFriendListController getFriends :: Start");
         InformationDto informationDto = new InformationDto();
-        RespData respData = null;
-        ResponseEntity<RespData> responseEntity = null;
+        ResponseEntity<InformationDto> responseEntity = null;
         try {
             informationDto =
                     this.commonFriendListService.getFriends(userProfileDto);
-            responseEntity = this.requestResponseHandler
-                    .getHttpsSuccessStatusCode(informationDto);
+            responseEntity =
+                    new ResponseEntity<>(informationDto, HttpStatus.OK);
             log.info("Extracted friends for the Email Id {}. "
                     + userProfileDto.getFriends());
         } catch (TechnicalException ex) {
-            respData = new RespData();
-            respData.setResponseError(
-                    requestResponseHandler.setMicroServiceError(ex));
+            informationDto = new InformationDto();
+            informationDto.setSuccess(false);
             responseEntity =
-                    new ResponseEntity<>(respData, ex.getHttpErrorCode());
+                    new ResponseEntity<>(informationDto, ex.getHttpErrorCode());
             log.error("CommonFriendListController getFriends :: Error :: ", ex);
         } catch (Exception e) {
-            respData = new RespData();
-            respData.setResponseError(
-                    requestResponseHandler.setExceptionError(e));
-            responseEntity = new ResponseEntity<>(respData,
+            informationDto = new InformationDto();
+            informationDto.setSuccess(false);
+            responseEntity = new ResponseEntity<>(informationDto,
                     HttpStatus.INTERNAL_SERVER_ERROR);
             log.error("CommonFriendListController getFriends :: Error :: ", e);
         }
@@ -90,33 +82,30 @@ public class CommonFriendListController {
     @RequestMapping(path = "/getCommonFriends", method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<RespData> getCommonFriends(
+    public ResponseEntity<InformationDto> getCommonFriends(
             @RequestBody UserProfileDto userProfileDto) {
         log.debug("CommonFriendListController getCommonFriends :: Start");
-        InformationDto informationDto = new InformationDto();
-        RespData respData = null;
-        ResponseEntity<RespData> responseEntity = null;
+        InformationDto informationDto = null;
+        ResponseEntity<InformationDto> responseEntity = null;
         try {
             informationDto = this.commonFriendListService
                     .getCommonFriends(userProfileDto);
-            responseEntity = this.requestResponseHandler
-                    .getHttpsSuccessStatusCode(informationDto);
+            responseEntity =
+                    new ResponseEntity<>(informationDto, HttpStatus.OK);
             log.info("Extracted common friends for the given Email Id's {}. "
                     + userProfileDto.getFriends());
         } catch (TechnicalException ex) {
-            respData = new RespData();
-            respData.setResponseError(
-                    requestResponseHandler.setMicroServiceError(ex));
+            informationDto = new InformationDto();
+            informationDto.setSuccess(false);
             responseEntity =
-                    new ResponseEntity<>(respData, ex.getHttpErrorCode());
+                    new ResponseEntity<>(informationDto, ex.getHttpErrorCode());
             log.error(
                     "CommonFriendListController getCommonFriends :: Error :: ",
                     ex);
         } catch (Exception e) {
-            respData = new RespData();
-            respData.setResponseError(
-                    requestResponseHandler.setExceptionError(e));
-            responseEntity = new ResponseEntity<>(respData,
+            informationDto = new InformationDto();
+            informationDto.setSuccess(false);
+            responseEntity = new ResponseEntity<>(informationDto,
                     HttpStatus.INTERNAL_SERVER_ERROR);
             log.error(
                     "CommonFriendListController getCommonFriends :: Error :: ",

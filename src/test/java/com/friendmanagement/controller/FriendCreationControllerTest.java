@@ -13,12 +13,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.friendmanagement.dto.InformationDto;
+import com.friendmanagement.dto.SuccessStatusDto;
 import com.friendmanagement.dto.UserProfileDto;
 import com.friendmanagement.exception.TechnicalException;
-import com.friendmanagement.model.RespData;
 import com.friendmanagement.service.FriendCreationService;
-import com.friendmanagement.util.RequestResponseHandler;
 
 
 /**
@@ -36,17 +34,12 @@ public class FriendCreationControllerTest {
             new FriendCreationController();
 
     @Mock
-    private RequestResponseHandler requestResponseHandler;
-
-    @Mock
     private FriendCreationService friendsManagementService;
 
-    private static InformationDto informationDto = new InformationDto();
+    private static SuccessStatusDto successStatusDto = new SuccessStatusDto();
     private static UserProfileDto userProfileDto = new UserProfileDto();
-    private static Object responseBody = null;
-    private static RespData responseData = new RespData(responseBody, null);
-    private static ResponseEntity<RespData> responseEntity =
-            new ResponseEntity<>(responseData, HttpStatus.OK);
+    private static ResponseEntity<SuccessStatusDto> responseEntity =
+            new ResponseEntity<>(successStatusDto, HttpStatus.OK);
 
     /**
      * Initializes the objects before the test execution.
@@ -54,8 +47,7 @@ public class FriendCreationControllerTest {
      */
     @BeforeClass
     public static void init() {
-        informationDto.setSuccess(true);
-        informationDto.setFriends(null);
+        successStatusDto.setSuccess(true);
         userProfileDto.setEmailId("ssss@gmail.com");
     }
 
@@ -71,10 +63,7 @@ public class FriendCreationControllerTest {
     public void testCreateFriendConnectionSuccess() throws TechnicalException {
         Mockito.when(
                 this.friendsManagementService.createFriendConnection(any()))
-                .thenReturn(informationDto);
-        Mockito.when(
-                this.requestResponseHandler.getHttpsSuccessStatusCode(any()))
-                .thenReturn(responseEntity);
+                .thenReturn(successStatusDto);
         Assert.assertEquals(this.friendCreationController
                 .createFriendConnection(userProfileDto), responseEntity);
     }

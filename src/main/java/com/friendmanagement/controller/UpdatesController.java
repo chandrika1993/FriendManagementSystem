@@ -15,11 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.friendmanagement.dto.BlockDto;
 import com.friendmanagement.dto.InformationDto;
 import com.friendmanagement.dto.SubscriptionDto;
+import com.friendmanagement.dto.SuccessStatusDto;
 import com.friendmanagement.exception.TechnicalException;
-import com.friendmanagement.model.RespData;
 import com.friendmanagement.service.UpdatesService;
 import com.friendmanagement.service.impl.UpdatesServiceImpl;
-import com.friendmanagement.util.RequestResponseHandler;
 
 /**
  * <PRE>
@@ -40,12 +39,8 @@ public class UpdatesController {
     @Autowired
     private UpdatesService updatesService = new UpdatesServiceImpl();
 
-    @Autowired
-    private RequestResponseHandler requestResponseHandler;
-
-
     /**
-     * Rest end Point to set subscription Connection request.
+     * Rest end Point to set subscription for Email Updates.
      * 
      * @return ResponseEntity response
      */
@@ -53,33 +48,30 @@ public class UpdatesController {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<RespData> subscribeForEmailUpdates(
+    public ResponseEntity<SuccessStatusDto> subscribeForEmailUpdates(
             @RequestBody SubscriptionDto subscriptionDto) {
         log.info("UpdatesController subscribeForEmailUpdates:: Start");
-        RespData respData = null;
-        ResponseEntity<RespData> responseEntity = null;
-        InformationDto informationDto = null;
+        ResponseEntity<SuccessStatusDto> responseEntity = null;
+        SuccessStatusDto successStatusDto = null;
         try {
-            informationDto = this.updatesService
+            successStatusDto = this.updatesService
                     .subscribeForEmailUpdates(subscriptionDto);
-            responseEntity = this.requestResponseHandler
-                    .getHttpsSuccessStatusCode(informationDto);
+            responseEntity =
+                    new ResponseEntity<>(successStatusDto, HttpStatus.OK);
             log.info("Subscription Created Successfully for Emails = {} & {}."
                     + subscriptionDto.getRequestor()
                     + subscriptionDto.getTarget());
         } catch (TechnicalException ex) {
-            respData = new RespData();
-            respData.setResponseError(
-                    requestResponseHandler.setMicroServiceError(ex));
-            responseEntity =
-                    new ResponseEntity<>(respData, ex.getHttpErrorCode());
+            successStatusDto = new SuccessStatusDto();
+            successStatusDto.setSuccess(false);
+            responseEntity = new ResponseEntity<>(successStatusDto,
+                    ex.getHttpErrorCode());
             log.error("UpdatesController subscribeForEmailUpdates :: Error :: ",
                     ex);
         } catch (Exception e) {
-            respData = new RespData();
-            respData.setResponseError(
-                    requestResponseHandler.setExceptionError(e));
-            responseEntity = new ResponseEntity<>(respData,
+            successStatusDto = new SuccessStatusDto();
+            successStatusDto.setSuccess(false);
+            responseEntity = new ResponseEntity<>(successStatusDto,
                     HttpStatus.INTERNAL_SERVER_ERROR);
             log.error("UpdatesController subscribeForEmailUpdates :: Error :: ",
                     e);
@@ -96,31 +88,29 @@ public class UpdatesController {
     @RequestMapping(path = "/blockUpdates", method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<RespData> blockUpdates(
+    public ResponseEntity<SuccessStatusDto> blockUpdates(
             @RequestBody SubscriptionDto subscriptionDto) {
         log.info("UpdatesController blockUpdates:: Start");
-        RespData respData = null;
-        ResponseEntity<RespData> responseEntity = null;
-        InformationDto informationDto = null;
+        ResponseEntity<SuccessStatusDto> responseEntity = null;
+        SuccessStatusDto successStatusDto = null;
         try {
-            informationDto = this.updatesService.blockUpdates(subscriptionDto);
-            responseEntity = this.requestResponseHandler
-                    .getHttpsSuccessStatusCode(informationDto);
+            successStatusDto =
+                    this.updatesService.blockUpdates(subscriptionDto);
+            responseEntity =
+                    new ResponseEntity<>(successStatusDto, HttpStatus.OK);
             log.info("Block Updates Done Successfully for Emails = {} & {}."
                     + subscriptionDto.getRequestor()
                     + subscriptionDto.getTarget());
         } catch (TechnicalException ex) {
-            respData = new RespData();
-            respData.setResponseError(
-                    requestResponseHandler.setMicroServiceError(ex));
-            responseEntity =
-                    new ResponseEntity<>(respData, ex.getHttpErrorCode());
+            successStatusDto = new SuccessStatusDto();
+            successStatusDto.setSuccess(false);
+            responseEntity = new ResponseEntity<>(successStatusDto,
+                    ex.getHttpErrorCode());
             log.error("UpdatesController blockUpdates :: Error :: ", ex);
         } catch (Exception e) {
-            respData = new RespData();
-            respData.setResponseError(
-                    requestResponseHandler.setExceptionError(e));
-            responseEntity = new ResponseEntity<>(respData,
+            successStatusDto = new SuccessStatusDto();
+            successStatusDto.setSuccess(false);
+            responseEntity = new ResponseEntity<>(successStatusDto,
                     HttpStatus.INTERNAL_SERVER_ERROR);
             log.error("UpdatesController blockUpdates :: Error :: ", e);
         }
@@ -138,34 +128,31 @@ public class UpdatesController {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<RespData> getEmailsWithSubscription(
+    public ResponseEntity<InformationDto> getEmailsWithSubscription(
             @RequestBody BlockDto blockDto) {
         log.info("UpdatesController getEmailsWithSubscription:: Start");
-        RespData respData = null;
-        ResponseEntity<RespData> responseEntity = null;
+        ResponseEntity<InformationDto> responseEntity = null;
         InformationDto informationDto = null;
         try {
             informationDto =
                     this.updatesService.getEmailsWithSubscription(blockDto);
-            responseEntity = this.requestResponseHandler
-                    .getHttpsSuccessStatusCode(informationDto);
+            responseEntity =
+                    new ResponseEntity<>(informationDto, HttpStatus.OK);
             log.info(
                     "Subscription List Extracted Successfully for Email Id = {}. "
                             + blockDto.getSender());
         } catch (TechnicalException ex) {
-            respData = new RespData();
-            respData.setResponseError(
-                    requestResponseHandler.setMicroServiceError(ex));
+            informationDto = new InformationDto();
+            informationDto.setSuccess(false);
             responseEntity =
-                    new ResponseEntity<>(respData, ex.getHttpErrorCode());
+                    new ResponseEntity<>(informationDto, ex.getHttpErrorCode());
             log.error(
                     "UpdatesController getEmailsWithSubscription :: Error :: ",
                     ex);
         } catch (Exception e) {
-            respData = new RespData();
-            respData.setResponseError(
-                    requestResponseHandler.setExceptionError(e));
-            responseEntity = new ResponseEntity<>(respData,
+            informationDto = new InformationDto();
+            informationDto.setSuccess(false);
+            responseEntity = new ResponseEntity<>(informationDto,
                     HttpStatus.INTERNAL_SERVER_ERROR);
             log.error(
                     "UpdatesController getEmailsWithSubscription :: Error :: ",

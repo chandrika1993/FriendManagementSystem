@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.friendmanagement.constants.FriendsConstants;
 import com.friendmanagement.dao.FriendCreationDao;
-import com.friendmanagement.dto.InformationDto;
+import com.friendmanagement.dto.SuccessStatusDto;
 import com.friendmanagement.dto.UserProfileDto;
 import com.friendmanagement.exception.TechnicalException;
 import com.friendmanagement.model.Friends;
@@ -42,10 +42,10 @@ public class FriendCreationServiceImpl implements FriendCreationService {
 
 
     @Override
-    public InformationDto createFriendConnection(UserProfileDto userProfileDto)
-            throws TechnicalException {
+    public SuccessStatusDto createFriendConnection(
+            UserProfileDto userProfileDto) throws TechnicalException {
         log.debug("FriendsManagementServiceImpl createConnection :: Start");
-        InformationDto informationDto = new InformationDto();
+        SuccessStatusDto successStatusDto = new SuccessStatusDto();
         try {
             List<UserProfile> friends = new ArrayList<>();
             for (int i = 0; i < userProfileDto.getFriends().size(); i++) {
@@ -53,7 +53,7 @@ public class FriendCreationServiceImpl implements FriendCreationService {
                 String emails = null;
                 if (userProfileDto.getFriends().get(1)
                         .equals(userProfileDto.getFriends().get(0))) {
-                    informationDto.setSuccess(false);
+                    successStatusDto.setSuccess(false);
                     throw new TechnicalException(
                             FriendsConstants.UNAUTHORIZED_CODE,
                             FriendsConstants.SAME_EMAILS,
@@ -100,7 +100,7 @@ public class FriendCreationServiceImpl implements FriendCreationService {
                     friends.add(userProfile1);
                 }
             }
-            informationDto.setSuccess(true);
+            successStatusDto.setSuccess(true);
             log.debug("FriendsManagementServiceImpl createConnection :: End");
 
         } catch (PersistenceException | IllegalArgumentException e) {
@@ -111,6 +111,6 @@ public class FriendCreationServiceImpl implements FriendCreationService {
                     FriendsConstants.DATABASE_SERVICE,
                     HttpStatus.SERVICE_UNAVAILABLE, e);
         }
-        return informationDto;
+        return successStatusDto;
     }
 }

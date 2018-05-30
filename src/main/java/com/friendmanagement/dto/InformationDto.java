@@ -12,8 +12,8 @@ import java.util.Set;
 public class InformationDto {
 
     private boolean success;
-    private int count;
     private Set<String> friends;
+    private int count;
 
     /**
      * @return the friends

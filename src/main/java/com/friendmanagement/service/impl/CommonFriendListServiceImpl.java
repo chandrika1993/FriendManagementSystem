@@ -24,6 +24,13 @@ import com.friendmanagement.model.Friends;
 import com.friendmanagement.model.UserProfile;
 import com.friendmanagement.service.CommonFriendListService;
 
+/**
+ * <PRE>
+ * Class name       : CommonFriendListServiceImpl
+ * Description      : The class which performs functions for fetching friends data from db. 
+ * Author           : Capgemini.
+ * </PRE>
+ */
 @Service("commonFriendsManagementService")
 public class CommonFriendListServiceImpl implements CommonFriendListService {
 

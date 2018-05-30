@@ -2,7 +2,6 @@ package com.friendmanagement.dao;
 
 import com.friendmanagement.model.UserProfile;
 
-
 /**
  * <PRE>
  * Interface name   : FriendCreationDao

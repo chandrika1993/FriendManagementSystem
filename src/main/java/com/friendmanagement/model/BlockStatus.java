@@ -34,7 +34,7 @@ public class BlockStatus {
     @Column(name = "block_status", length = 256, updatable = false)
     private Character blockInfo;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "userProfileId", referencedColumnName = "userProfileId")
     private UserProfile userProfile;
 

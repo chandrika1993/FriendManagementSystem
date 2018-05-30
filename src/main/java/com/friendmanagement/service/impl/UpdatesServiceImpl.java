@@ -21,9 +21,9 @@ import com.friendmanagement.dao.impl.UpdatesDaoImpl;
 import com.friendmanagement.dto.BlockDto;
 import com.friendmanagement.dto.InformationDto;
 import com.friendmanagement.dto.SubscriptionDto;
+import com.friendmanagement.dto.SuccessStatusDto;
 import com.friendmanagement.exception.TechnicalException;
 import com.friendmanagement.model.BlockStatus;
-import com.friendmanagement.model.Friends;
 import com.friendmanagement.model.Subscription;
 import com.friendmanagement.model.UserProfile;
 import com.friendmanagement.service.UpdatesService;
@@ -48,17 +48,16 @@ public class UpdatesServiceImpl implements UpdatesService {
 
 
     @Override
-    public InformationDto subscribeForEmailUpdates(
+    public SuccessStatusDto subscribeForEmailUpdates(
             SubscriptionDto subscriptionDto) throws TechnicalException {
         log.debug("UpdatesServiceImpl subscribeForEmailUpdates :: Start");
-        InformationDto informationDto = new InformationDto();
+        SuccessStatusDto successStatusDto = new SuccessStatusDto();
         UserProfile userProfileRequestor = new UserProfile();
         UserProfile userProfileTarget = new UserProfile();
         List<String> emailIds = new ArrayList<>();
         Subscription subscription = new Subscription();
         Set<Subscription> emailSubscriptionList = new HashSet<>();
         Set<BlockStatus> blockStatus = null;
-        Set<Friends> friends = null;
         emailIds.add(subscriptionDto.getRequestor());
         emailIds.add(subscriptionDto.getTarget());
         Long countRequestor;
@@ -67,7 +66,7 @@ public class UpdatesServiceImpl implements UpdatesService {
             int flag = 0;
             if (subscriptionDto.getRequestor()
                     .equals(subscriptionDto.getTarget())) {
-                informationDto.setSuccess(false);
+                successStatusDto.setSuccess(false);
                 log.debug("UpdatesServiceImpl subscribeForEmailUpdates ::"
                         + FriendsConstants.SAME_EMAILS);
                 throw new TechnicalException(FriendsConstants.UNAUTHORIZED_CODE,
@@ -84,7 +83,6 @@ public class UpdatesServiceImpl implements UpdatesService {
                         .findUsers(subscriptionDto.getRequestor());
                 userProfileTarget =
                         this.updatesDao.findUsers(subscriptionDto.getTarget());
-                friends = userProfileRequestor.getListOfFriends();
                 blockStatus = userProfileRequestor.getBlockList();
                 for (BlockStatus blockStatus2 : blockStatus) {
                     if (blockStatus2.getEmailId()
@@ -94,35 +92,29 @@ public class UpdatesServiceImpl implements UpdatesService {
                 }
                 if (flag == 0) {
                     int flag1 = 0;
-                    for (Friends friends2 : friends) {
-                        if (friends2.getEmailId()
+                    Set<Subscription> subscriptions = null;
+                    subscription.setSubscriptionStatus('Y');
+                    subscription.setEmailId(userProfileTarget.getUserEmailId());
+                    subscription.setUserProfile(userProfileRequestor);
+                    emailSubscriptionList.add(subscription);
+                    subscriptions =
+                            userProfileRequestor.getEmailSubscriptionList();
+                    for (Subscription subscription2 : subscriptions) {
+                        if (subscription2.getEmailId()
                                 .equals(subscriptionDto.getTarget())) {
-                            Set<Subscription> subscriptions = null;
-                            subscription.setSubscriptionStatus('Y');
-                            subscription.setEmailId(
-                                    userProfileTarget.getUserEmailId());
-                            subscription.setUserProfile(userProfileRequestor);
-                            emailSubscriptionList.add(subscription);
-                            subscriptions = userProfileRequestor
-                                    .getEmailSubscriptionList();
-                            for (Subscription subscription2 : subscriptions) {
-                                if (subscription2.getEmailId()
-                                        .equals(subscriptionDto.getTarget())) {
-                                    flag1++;
-                                }
-                            }
-                            if (flag1 == 0) {
-                                userProfileRequestor.setEmailSubscriptionList(
-                                        emailSubscriptionList);
-                                this.updatesDao.subscribeForEmailUpdates(
-                                        userProfileRequestor);
-                                informationDto.setSuccess(true);
-                            } else
-                                informationDto.setSuccess(true);
+                            flag1++;
                         }
                     }
+                    if (flag1 == 0) {
+                        userProfileRequestor.setEmailSubscriptionList(
+                                emailSubscriptionList);
+                        this.updatesDao
+                                .subscribeForEmailUpdates(userProfileRequestor);
+                        successStatusDto.setSuccess(true);
+                    } else
+                        successStatusDto.setSuccess(true);
                 } else {
-                    informationDto.setSuccess(false);
+                    successStatusDto.setSuccess(false);
                     log.debug("UpdatesServiceImpl subscribeForEmailUpdates ::"
                             + FriendsConstants.BLOCKED_STATUS);
                     throw new TechnicalException(
@@ -132,7 +124,7 @@ public class UpdatesServiceImpl implements UpdatesService {
                             HttpStatus.UNAUTHORIZED, null);
                 }
             } else {
-                informationDto.setSuccess(false);
+                successStatusDto.setSuccess(false);
                 throw new TechnicalException(FriendsConstants.DATA_NOT_FOUND,
                         FriendsConstants.EMAIL_NOT_FOUND,
                         FriendsConstants.DATA_NOT_FOUND, HttpStatus.NOT_FOUND,
@@ -146,14 +138,14 @@ public class UpdatesServiceImpl implements UpdatesService {
                     FriendsConstants.DATABASE_SERVICE,
                     HttpStatus.SERVICE_UNAVAILABLE, e);
         }
-        return informationDto;
+        return successStatusDto;
     }
 
     @Override
-    public InformationDto blockUpdates(SubscriptionDto subscriptionDto)
+    public SuccessStatusDto blockUpdates(SubscriptionDto subscriptionDto)
             throws TechnicalException {
         log.debug("UpdatesServiceImpl blockUpdates :: Start");
-        InformationDto informationDto = new InformationDto();
+        SuccessStatusDto successStatusDto = new SuccessStatusDto();
         UserProfile userProfileRequestor = new UserProfile();
         UserProfile userProfileTarget = new UserProfile();
         Set<BlockStatus> blockList = new HashSet<>();
@@ -164,7 +156,7 @@ public class UpdatesServiceImpl implements UpdatesService {
         try {
             if (subscriptionDto.getRequestor()
                     .equals(subscriptionDto.getTarget())) {
-                informationDto.setSuccess(false);
+                successStatusDto.setSuccess(false);
                 log.debug("UpdatesServiceImpl blockUpdates :: "
                         + FriendsConstants.SAME_EMAILS);
                 throw new TechnicalException(FriendsConstants.UNAUTHORIZED_CODE,
@@ -179,26 +171,27 @@ public class UpdatesServiceImpl implements UpdatesService {
             if ((countRequestor != 0l) && (countTarget != 0l)) {
                 Set<BlockStatus> listOfBlock = null;
                 blockStatus.setBlockStatus('Y');
-                blockStatus.setEmailId(subscriptionDto.getRequestor());
+                blockStatus.setEmailId(subscriptionDto.getTarget());
                 userProfileTarget =
                         this.updatesDao.findUsers(subscriptionDto.getTarget());
-                blockStatus.setUserProfile(userProfileTarget);
                 userProfileRequestor = this.updatesDao
                         .findUsers(subscriptionDto.getRequestor());
+                blockStatus.setUserProfile(userProfileRequestor);
                 listOfBlock = userProfileRequestor.getBlockList();
                 for (BlockStatus blockStatus2 : listOfBlock) {
                     if (blockStatus2.getEmailId()
-                            .equals(userProfileTarget.getUserEmailId()))
+                            .equals(userProfileTarget.getUserEmailId())) {
                         flag++;
+                    }
                 }
-                if (flag != 0) {
+                if (flag == 0) {
                     blockList.add(blockStatus);
                 }
                 userProfileRequestor.setBlockList(blockList);
                 this.updatesDao.blockUpdates(userProfileRequestor);
-                informationDto.setSuccess(true);
+                successStatusDto.setSuccess(true);
             } else {
-                informationDto.setSuccess(false);
+                successStatusDto.setSuccess(false);
                 log.debug("UpdatesServiceImpl blockUpdates :: "
                         + FriendsConstants.EMAIL_NOT_FOUND);
                 throw new TechnicalException(FriendsConstants.DATA_NOT_FOUND,
@@ -214,7 +207,7 @@ public class UpdatesServiceImpl implements UpdatesService {
                     FriendsConstants.DATABASE_SERVICE,
                     HttpStatus.SERVICE_UNAVAILABLE, e);
         }
-        return informationDto;
+        return successStatusDto;
     }
 
     @Override

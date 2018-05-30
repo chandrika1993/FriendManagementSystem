@@ -12,12 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.friendmanagement.dto.InformationDto;
+import com.friendmanagement.dto.SuccessStatusDto;
 import com.friendmanagement.dto.UserProfileDto;
 import com.friendmanagement.exception.TechnicalException;
-import com.friendmanagement.model.RespData;
 import com.friendmanagement.service.FriendCreationService;
-import com.friendmanagement.util.RequestResponseHandler;
 
 /**
  * <PRE>
@@ -38,9 +36,6 @@ public class FriendCreationController {
     @Autowired
     private FriendCreationService friendsManagementService;
 
-    @Autowired
-    private RequestResponseHandler requestResponseHandler;
-
     /**
      * Rest end Point to handle create Friend Connection request form UI
      * 
@@ -50,33 +45,30 @@ public class FriendCreationController {
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<RespData> createFriendConnection(
+    public ResponseEntity<SuccessStatusDto> createFriendConnection(
             @RequestBody UserProfileDto userProfileDto) {
         log.info("FriendManagementController createFriendConnection:: Start");
-        RespData respData = null;
-        ResponseEntity<RespData> responseEntity = null;
-        InformationDto informationDto = null;
+        ResponseEntity<SuccessStatusDto> responseEntity = null;
+        SuccessStatusDto successStatusDto = null;
         try {
-            informationDto = this.friendsManagementService
+            successStatusDto = this.friendsManagementService
                     .createFriendConnection(userProfileDto);
-            responseEntity = this.requestResponseHandler
-                    .getHttpsSuccessStatusCode(informationDto);
+            responseEntity =
+                    new ResponseEntity<>(successStatusDto, HttpStatus.OK);
             log.info("Friend Connection Created Successfully between :"
                     + userProfileDto.getFriends());
         } catch (TechnicalException ex) {
-            respData = new RespData();
-            respData.setResponseError(
-                    requestResponseHandler.setMicroServiceError(ex));
-            responseEntity =
-                    new ResponseEntity<>(respData, ex.getHttpErrorCode());
+            successStatusDto = new SuccessStatusDto();
+            successStatusDto.setSuccess(false);
+            responseEntity = new ResponseEntity<>(successStatusDto,
+                    ex.getHttpErrorCode());
             log.error(
                     "FriendManagementController createFriendConnection :: Error :: ",
                     ex);
         } catch (Exception e) {
-            respData = new RespData();
-            respData.setResponseError(
-                    requestResponseHandler.setExceptionError(e));
-            responseEntity = new ResponseEntity<>(respData,
+            successStatusDto = new SuccessStatusDto();
+            successStatusDto.setSuccess(false);
+            responseEntity = new ResponseEntity<>(successStatusDto,
                     HttpStatus.INTERNAL_SERVER_ERROR);
             log.error(
                     "FriendManagementController createFriendConnection :: Error :: ",
