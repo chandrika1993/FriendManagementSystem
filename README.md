@@ -26,7 +26,7 @@ This is an application with a need to build its own social network, "Friends Man
 # Database
 	Below is the simple SQL Design Diagram used for the application .
 	
-![SQLDB_Design](../sql/db_design/SQLDB_Design.png?raw=true "SQLDB_Design")
+![SQLDB_Design](sql/db_design/SQLDB_Design.png?raw=true "SQLDB_Design")
 
 # List of REST Endpoints and Explanation
 
