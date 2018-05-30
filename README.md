@@ -1,28 +1,32 @@
 # FriendManagementSystem
 This is an application with a need to build its own social network, "Friends Management" is a common requirement which usually starts off simple but can grow in complexity depending on the application's use case. Usually, the application comprised of features like "Friend", "Unfriend", "Block", "Receive Updates" etc.
-Technology Choice
-Spring Boot
+
+# Technology Choice
+
+#Spring Boot
 1.	Spring Boot allows easy setup of standalone Spring-based applications.
 2.	Ideal for spinning up microservices and easy to deploy.
 3.	Makes data access less of a pain, i.e. JPA mappings through Spring Data.
-MySQL
+
+#MySQL
 1.	Used MySQL Workbench for storing the Data of different tables.
 2.	MySQL Workbench allows easy setup of tables by use its UI.
 Pivotal Cloud Foundry 
 1.	PCF allows easy deployment of Applications on Cloud.
 2.	Through PCF Metrics we can easily manage and analyse the load on the application.
 3.	Allows easy integration of different tools on the deployed Application.
-Deployment to PCF
+
+#Deployment to PCF
 
 
 
 
 
-Database
+#Database
 Below is the simple SQL Design Diagram used for the application .
  
 
-List of REST Endpoints and Explanation
+#List of REST Endpoints and Explanation
 1.	Creates Friend Connection between two emails specified within friends set.
 •	Path : /createFriendConnection
 •	Input :
