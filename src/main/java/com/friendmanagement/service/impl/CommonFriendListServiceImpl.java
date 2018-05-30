@@ -110,11 +110,18 @@ public class CommonFriendListServiceImpl implements CommonFriendListService {
         Set<String> setOfFriends = new HashSet<>();
         List<String> emailId = new ArrayList<>();
         List<String> listsFriends = new ArrayList<>();
-        listOfFriends.addAll(userProfileDto.getFriends());
-        for (String email : listOfFriends) {
-            emailId.add(email);
-        }
+
         try {
+            listOfFriends.addAll(userProfileDto.getFriends());
+            for (String email : listOfFriends) {
+                emailId.add(email);
+            }
+            if (emailId.get(0).equals(emailId.get(1))) {
+                throw new TechnicalException(FriendsConstants.UNAUTHORIZED_CODE,
+                        FriendsConstants.SAME_EMAILS,
+                        FriendsConstants.UNAUTHORIZED, HttpStatus.UNAUTHORIZED,
+                        null);
+            }
             List<Friends> friends1 = new ArrayList<>();
             List<Friends> friends2 = new ArrayList<>();
             count1 = this.commonFriendListDao
