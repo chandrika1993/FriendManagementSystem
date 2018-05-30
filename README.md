@@ -13,9 +13,9 @@ This is an application with a need to build its own social network, "Friends Man
 	2.	MySQL Workbench allows easy setup of tables by use its UI.
 	
 ### Pivotal Cloud Foundry 
-		1.	PCF allows easy deployment of Applications on Cloud.
-		2.	Through PCF Metrics we can easily manage and analyse the load on the 			application.
-		3.	Allows easy integration of different tools on the deployed Application.
+	1.	PCF allows easy deployment of Applications on Cloud.
+	2.	Through PCF Metrics we can easily manage and analyse the load on the 			application.
+	3.	Allows easy integration of different tools on the deployed Application.
 
 ## Deployment to PCF
 
@@ -26,7 +26,7 @@ This is an application with a need to build its own social network, "Friends Man
 ## Database
 	Below is the simple SQL Design Diagram used for the application .
 	
-![SQLDB_Design](https://github.com/chandrika1993/FriendManagementSystem/tree/master/src/main/resources/sql/db_design/SQLDB_Design.png)
+![Db Script](https://github.com/chandrika1993/FriendManagementSystem/tree/master/src/main/resources/sql/db_design/SQLDB_Design.png)
 
 ## List of REST Endpoints and Explanation
 
