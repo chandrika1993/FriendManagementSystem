@@ -125,33 +125,6 @@ public class UpdatesServiceImplTest {
     /**
      * Tests method subscribeForEmailUpdates.
      * 
-     * Expectation is that returned satusCode equals 200.
-     * 
-     * @throws TechnicalException
-     */
-    @Test(expected = TechnicalException.class)
-    public void testSubscribeForEmailUpdatesBlockSuccess()
-            throws TechnicalException {
-        String emailId = "abc@gmail.com";
-        subscriptionDto.setTarget(emailId);
-        BlockStatus blockStatus1 = new BlockStatus();
-        blockStatus1.setEmailId(emailId);
-        blockStatus.add(blockStatus1);
-        userProfile.setBlockList(blockStatus);
-        informationDto.setSuccess(false);
-        Mockito.when(this.updatesDao.countFindUsers(anyString()))
-                .thenReturn(this.count);
-        Mockito.when(this.updatesDao.findUsers(anyString()))
-                .thenReturn(userProfile);
-        Assert.assertEquals(this.updatesService
-                .subscribeForEmailUpdates(subscriptionDto).isSuccess(),
-                informationDto.isSuccess());
-    }
-
-
-    /**
-     * Tests method subscribeForEmailUpdates.
-     * 
      * Expectation is that returned satusCode equals 503.
      * 
      * @throws TechnicalException

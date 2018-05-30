@@ -22,7 +22,7 @@ import com.friendmanagement.model.UserProfile;
 
 /**
  * <PRE>
- * Class name       : CommonFriendListDaoImplTest
+ * Class name       : CommonFriendListDaoImplTestInMemory
  * Description      : Test class which tests the CommonFriendListDaoImpl methods. 
  * Author           : Capgemini.
  * </PRE>

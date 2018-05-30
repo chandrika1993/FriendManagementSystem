@@ -65,7 +65,7 @@ public class CommonFriendListServiceImpl implements CommonFriendListService {
                 log.error("FriendsManagementServiceImpl getFriends error "
                         + FriendsConstants.DATA_NOT_FOUND);
                 throw new TechnicalException(FriendsConstants.DATA_NOT_FOUND,
-                        FriendsConstants.EMAIL_NOT_FOUND,
+                        FriendsConstants.EMAIL_NOT_FOUND + " :: " + emailId,
                         FriendsConstants.DATA_NOT_FOUND, HttpStatus.NOT_FOUND,
                         null);
             }

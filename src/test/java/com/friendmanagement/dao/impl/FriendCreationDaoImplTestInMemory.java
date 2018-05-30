@@ -21,7 +21,7 @@ import com.friendmanagement.model.UserProfile;
 
 /**
  * <PRE>
- * Class name       : FriendCreationDaoImpl
+ * Class name       : FriendCreationDaoImplTestInMemory
  * Description      : Test class which tests the FriendCreationDaoImpl methods. 
  * Author           : Capgemini.
  * </PRE>
