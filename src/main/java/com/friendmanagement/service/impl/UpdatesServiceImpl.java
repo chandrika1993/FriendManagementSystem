@@ -46,7 +46,6 @@ public class UpdatesServiceImpl implements UpdatesService {
     @Autowired
     private UpdatesDao updatesDao = new UpdatesDaoImpl();
 
-
     @Override
     public SuccessStatusDto subscribeForEmailUpdates(
             SubscriptionDto subscriptionDto) throws TechnicalException {
@@ -144,15 +143,15 @@ public class UpdatesServiceImpl implements UpdatesService {
     @Override
     public SuccessStatusDto blockUpdates(SubscriptionDto subscriptionDto)
             throws TechnicalException {
+        Long countRequestor;
+        Long countTarget;
+        int flag = 0;
         log.debug("UpdatesServiceImpl blockUpdates :: Start");
         SuccessStatusDto successStatusDto = new SuccessStatusDto();
         UserProfile userProfileRequestor = new UserProfile();
         UserProfile userProfileTarget = new UserProfile();
         Set<BlockStatus> blockList = new HashSet<>();
         BlockStatus blockStatus = new BlockStatus();
-        Long countRequestor;
-        Long countTarget;
-        int flag = 0;
         try {
             if (subscriptionDto.getRequestor()
                     .equals(subscriptionDto.getTarget())) {
@@ -201,7 +200,7 @@ public class UpdatesServiceImpl implements UpdatesService {
             }
             log.debug("UpdatesServiceImpl blockUpdates :: End");
         } catch (PersistenceException | IllegalArgumentException e) {
-            log.error("UpdatesServiceImpl subscribeForEmailUpdates error " + e);
+            log.error("UpdatesServiceImpl blockUpdates error " + e);
             throw new TechnicalException(FriendsConstants.DATABASE_ERROR,
                     FriendsConstants.DATABASE_ERROR_MESSAGE,
                     FriendsConstants.DATABASE_SERVICE,

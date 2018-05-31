@@ -67,7 +67,7 @@ public class CommonFriendListServiceImplTest {
         userProfile.setListOfFriends(listOfFriends);
         userProfileDto.setEmailId(email);
         list2.add(friends2.getEmailId());
-        list2.add(friends2.getEmailId());
+        list2.add("asdfs@gmail.com");
         userProfileDto.setFriends(list2);
         friends.add(friends2);
         for (int i = 0; i < friends.size(); i++) {
@@ -92,7 +92,7 @@ public class CommonFriendListServiceImplTest {
         Mockito.when(this.commonFriendListDao.getUserProfile(anyString()))
                 .thenReturn(userProfile);
         Assert.assertEquals(this.commonFriendListService
-                .getFriends(userProfileDto).getFriends().size(), 0);
+                .getFriends(userProfileDto).getFriends().size(), 1);
     }
 
     /**

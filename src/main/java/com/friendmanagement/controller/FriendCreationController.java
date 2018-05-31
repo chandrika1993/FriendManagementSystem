@@ -19,7 +19,7 @@ import com.friendmanagement.service.FriendCreationService;
 
 /**
  * <PRE>
- * Class Name  : FriendManagementController
+ * Class Name  : FriendCreationController
  * Description : Implementation class for Friend Management.
  * Author      : Capgemini
  * </PRE>

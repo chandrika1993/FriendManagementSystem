@@ -1,7 +1,11 @@
-
 dbUsername: root
 dbPassword: root
-dbServerUrl: jdbc:mysql://localhost:3306/friendmanagementsystem?autoReconnect=true&useSSL=false
-dbDriverClass: com.mysql.cj.jdbc.Driver
+dbServerUrl: jdbc:mysql://localhost:3306/friendmanagementsystem?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+dbDriverClass: com.mysql.jdbc.Driver
 dbServerDialect: org.hibernate.dialect.MySQL5Dialect
 
+//dbUsername: bc2769e99d21ee
+//dbPassword: 132c8ced
+//dbServerUrl: jdbc:mysql://us-cdbr-iron-east-04.cleardb.net:3306/ad_0b12cb465e9c716
+//dbDriverClass: com.mysql.cj.jdbc.Driver
+//dbServerDialect: org.hibernate.dialect.MySQL5Dialect
