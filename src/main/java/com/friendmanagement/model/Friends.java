@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -22,11 +21,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "Friends")
 @XmlRootElement
-@SequenceGenerator(name = "seqFriend", initialValue = 1)
 public class Friends {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqFriend")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", length = 256, updatable = false, nullable = false)
     private Integer id;
 

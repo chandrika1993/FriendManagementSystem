@@ -8,25 +8,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * <PRE>
- * Class name       : Subscription
- * Description      : Model for holding Subscription Information. 
+ * Class name       : BlockStatus
+ * Description      : Model for holding BlockStatus Information. 
  * Author           : Capgemini.
  * </PRE>
  */
 @Entity
 @Table(name = "Block")
 @XmlRootElement
-@SequenceGenerator(name = "seqBlock", initialValue = 1)
 public class BlockStatus {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqBlock")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", length = 256, updatable = false, nullable = false)
     private Integer id;
 
