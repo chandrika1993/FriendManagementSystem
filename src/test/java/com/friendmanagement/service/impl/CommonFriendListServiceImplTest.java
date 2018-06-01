@@ -48,6 +48,7 @@ public class CommonFriendListServiceImplTest {
     private static UserProfileDto userProfileDto = new UserProfileDto();
     private Long count = 1L;
     private static List<Friends> friends = new ArrayList<>();
+    private static Friends friends1 = new Friends();
     private static Friends friends2 = new Friends();
     private static String email = "abc@gmail.com";
     private static List<String> list2 = new ArrayList<>();
@@ -61,9 +62,10 @@ public class CommonFriendListServiceImplTest {
      */
     @BeforeClass
     public static void init() {
-        friends2.setEmailId(email);
+        friends2.setEmailId("sdfd@gmail.com");
+        friends1.setEmailId("sdffd");
         userProfile.setUserEmailId(email);
-        listOfFriends.add(friends2);
+        listOfFriends.add(friends1);
         userProfile.setListOfFriends(listOfFriends);
         userProfileDto.setEmailId(email);
         list2.add(friends2.getEmailId());

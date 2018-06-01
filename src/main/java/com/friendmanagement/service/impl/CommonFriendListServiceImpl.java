@@ -46,33 +46,32 @@ public class CommonFriendListServiceImpl implements CommonFriendListService {
     public InformationDto getFriends(UserProfileDto userProfiledto)
             throws TechnicalException {
         log.debug("CommonFriendListServiceImpl getFriends :: Start");
-        String emailId = null;
         UserProfile userProfile;
+        Long count;
         InformationDto informationDto = new InformationDto();
         List<Friends> friends = new ArrayList<>();
         List<String> listOfFriends = new ArrayList<>();
         List<String> listsFriends = new ArrayList<>();
         Set<String> list = new HashSet<>();
         listOfFriends.addAll(userProfiledto.getFriends());
-        for (String email : listOfFriends) {
-            emailId = email;
-        }
-        Long count;
         try {
-            count = this.commonFriendListDao.getUserProfileTotalCount(emailId);
+            count = this.commonFriendListDao
+                    .getUserProfileTotalCount(listOfFriends.get(0));
             if (count != 0l) {
-                userProfile = this.commonFriendListDao.getUserProfile(emailId);
+                userProfile = this.commonFriendListDao
+                        .getUserProfile(listOfFriends.get(0));
                 friends.addAll(userProfile.getListOfFriends());
                 for (int i = 0; i < friends.size(); i++) {
-                    if (!friends.get(i).getEmailId().equals(emailId))
+                    if (!friends.get(i).getEmailId()
+                            .equals(listOfFriends.get(0)))
                         listsFriends.add(friends.get(i).getEmailId());
                 }
             } else {
-                informationDto.setSuccess(false);
                 log.error("FriendsManagementServiceImpl getFriends error "
                         + FriendsConstants.DATA_NOT_FOUND);
                 throw new TechnicalException(FriendsConstants.DATA_NOT_FOUND,
-                        FriendsConstants.EMAIL_NOT_FOUND + " :: " + emailId,
+                        FriendsConstants.EMAIL_NOT_FOUND + " :: "
+                                + listOfFriends.get(0),
                         FriendsConstants.DATA_NOT_FOUND, HttpStatus.NOT_FOUND,
                         null);
             }
@@ -81,9 +80,8 @@ public class CommonFriendListServiceImpl implements CommonFriendListService {
             informationDto.setFriends(list);
             informationDto.setSuccess(true);
             log.debug("CommonFriendListServiceImpl getFriends :: End");
-        } catch (PersistenceException | DataIntegrityViolationException |
-
-                IllegalArgumentException e) {
+        } catch (PersistenceException | DataIntegrityViolationException
+                | IllegalArgumentException e) {
             log.error("CommonFriendListServiceImpl getFriends error " + e);
             throw new TechnicalException(FriendsConstants.DATABASE_ERROR,
                     FriendsConstants.DATABASE_ERROR_MESSAGE,
@@ -110,14 +108,12 @@ public class CommonFriendListServiceImpl implements CommonFriendListService {
         Set<String> setOfFriends = new HashSet<>();
         List<String> emailId = new ArrayList<>();
         List<String> listsFriends = new ArrayList<>();
-
         try {
             listOfFriends.addAll(userProfileDto.getFriends());
             for (String email : listOfFriends) {
                 emailId.add(email);
             }
             if (emailId.get(0).equals(emailId.get(1))) {
-                informationDto.setSuccess(false);
                 throw new TechnicalException(FriendsConstants.UNAUTHORIZED_CODE,
                         FriendsConstants.SAME_EMAILS,
                         FriendsConstants.UNAUTHORIZED, HttpStatus.UNAUTHORIZED,
@@ -146,7 +142,6 @@ public class CommonFriendListServiceImpl implements CommonFriendListService {
                     }
                 }
                 if (listsFriends.isEmpty()) {
-                    informationDto.setSuccess(false);
                     throw new TechnicalException(
                             FriendsConstants.DATA_NOT_FOUND,
                             FriendsConstants.NO_COMMON_FRIENDS,
@@ -155,7 +150,6 @@ public class CommonFriendListServiceImpl implements CommonFriendListService {
                 }
                 setOfFriends.addAll(listsFriends);
             } else {
-                informationDto.setSuccess(false);
                 log.error("CommonFriendListServiceImpl getCommonFriends error "
                         + FriendsConstants.DATA_NOT_FOUND);
                 throw new TechnicalException(FriendsConstants.DATA_NOT_FOUND,

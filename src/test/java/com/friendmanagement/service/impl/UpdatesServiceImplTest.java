@@ -168,18 +168,22 @@ public class UpdatesServiceImplTest {
      * @throws TechnicalException
      * 
      */
-    @Test
+    @Test(expected = TechnicalException.class)
     public void testSubscribeForEmailUpdatesBlockedStatus()
             throws TechnicalException {
         String email1 = "dfgh";
         String email2 = "fghjfgj";
         SubscriptionDto subscriptionDto = new SubscriptionDto();
+        Subscription subscription = new Subscription();
+        subscription.setEmailId(email2);
         subscriptionDto.setRequestor(email1);
         subscriptionDto.setTarget(email2);
         Set<BlockStatus> blockList = new HashSet<>();
+        Set<Subscription> emailSubscriptionList = new HashSet<>();
         BlockStatus blockStatus = new BlockStatus();
         blockStatus.setEmailId(email2);
         blockList.add(blockStatus);
+        emailSubscriptionList.add(subscription);
         UserProfile userProfile = new UserProfile();
         userProfile.setListOfFriends(listOfFriends);
         userProfile.setBlockList(blockList);

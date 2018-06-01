@@ -62,10 +62,8 @@ public class UpdatesServiceImpl implements UpdatesService {
         Long countRequestor;
         Long countTarget;
         try {
-            int flag = 0;
             if (subscriptionDto.getRequestor()
                     .equals(subscriptionDto.getTarget())) {
-                successStatusDto.setSuccess(false);
                 log.debug("UpdatesServiceImpl subscribeForEmailUpdates ::"
                         + FriendsConstants.SAME_EMAILS);
                 throw new TechnicalException(FriendsConstants.UNAUTHORIZED_CODE,
@@ -86,48 +84,32 @@ public class UpdatesServiceImpl implements UpdatesService {
                 for (BlockStatus blockStatus2 : blockStatus) {
                     if (blockStatus2.getEmailId()
                             .equals(userProfileTarget.getUserEmailId())) {
-                        flag++;
+                        log.debug(
+                                "UpdatesServiceImpl subscribeForEmailUpdates ::"
+                                        + FriendsConstants.BLOCKED_STATUS);
+                        throw new TechnicalException(
+                                FriendsConstants.UNAUTHORIZED_CODE,
+                                FriendsConstants.BLOCKED_STATUS,
+                                FriendsConstants.BLOCKED_STATUS,
+                                HttpStatus.UNAUTHORIZED, null);
                     }
                 }
-                if (flag == 0) {
-                    int flag1 = 0;
-                    Set<Subscription> subscriptions = null;
-                    subscription.setSubscriptionStatus('Y');
-                    subscription.setEmailId(userProfileTarget.getUserEmailId());
-                    subscription.setUserProfile(userProfileRequestor);
-                    emailSubscriptionList.add(subscription);
-                    subscriptions =
-                            userProfileRequestor.getEmailSubscriptionList();
-                    for (Subscription subscription2 : subscriptions) {
-                        if (subscription2.getEmailId()
-                                .equals(subscriptionDto.getTarget())) {
-                            flag1++;
-                        }
-                    }
-                    if (flag1 == 0) {
+                Set<Subscription> subscriptions = null;
+                subscription.setSubscriptionStatus('Y');
+                subscription.setEmailId(userProfileTarget.getUserEmailId());
+                subscription.setUserProfile(userProfileRequestor);
+                emailSubscriptionList.add(subscription);
+                subscriptions = userProfileRequestor.getEmailSubscriptionList();
+                for (Subscription subscription2 : subscriptions) {
+                    if (!subscription2.getEmailId()
+                            .equals(subscriptionDto.getTarget())) {
                         userProfileRequestor.setEmailSubscriptionList(
                                 emailSubscriptionList);
                         this.updatesDao
                                 .subscribeForEmailUpdates(userProfileRequestor);
                         successStatusDto.setSuccess(true);
-                    } else
-                        successStatusDto.setSuccess(true);
-                } else {
-                    successStatusDto.setSuccess(false);
-                    log.debug("UpdatesServiceImpl subscribeForEmailUpdates ::"
-                            + FriendsConstants.BLOCKED_STATUS);
-                    throw new TechnicalException(
-                            FriendsConstants.UNAUTHORIZED_CODE,
-                            FriendsConstants.BLOCKED_STATUS,
-                            FriendsConstants.UNAUTHORIZED,
-                            HttpStatus.UNAUTHORIZED, null);
+                    }
                 }
-            } else {
-                successStatusDto.setSuccess(false);
-                throw new TechnicalException(FriendsConstants.DATA_NOT_FOUND,
-                        FriendsConstants.EMAIL_NOT_FOUND,
-                        FriendsConstants.DATA_NOT_FOUND, HttpStatus.NOT_FOUND,
-                        null);
             }
             log.debug("UpdatesServiceImpl subscribeForEmailUpdates :: End");
         } catch (PersistenceException | IllegalArgumentException e) {
@@ -155,7 +137,6 @@ public class UpdatesServiceImpl implements UpdatesService {
         try {
             if (subscriptionDto.getRequestor()
                     .equals(subscriptionDto.getTarget())) {
-                successStatusDto.setSuccess(false);
                 log.debug("UpdatesServiceImpl blockUpdates :: "
                         + FriendsConstants.SAME_EMAILS);
                 throw new TechnicalException(FriendsConstants.UNAUTHORIZED_CODE,
@@ -190,7 +171,6 @@ public class UpdatesServiceImpl implements UpdatesService {
                 this.updatesDao.blockUpdates(userProfileRequestor);
                 successStatusDto.setSuccess(true);
             } else {
-                successStatusDto.setSuccess(false);
                 log.debug("UpdatesServiceImpl blockUpdates :: "
                         + FriendsConstants.EMAIL_NOT_FOUND);
                 throw new TechnicalException(FriendsConstants.DATA_NOT_FOUND,
@@ -249,7 +229,7 @@ public class UpdatesServiceImpl implements UpdatesService {
                     throw new TechnicalException(
                             FriendsConstants.UNAUTHORIZED_CODE,
                             FriendsConstants.BLOCKED_STATUS,
-                            FriendsConstants.UNAUTHORIZED,
+                            FriendsConstants.BLOCKED_STATUS,
                             HttpStatus.UNAUTHORIZED, null);
                 }
             } else {

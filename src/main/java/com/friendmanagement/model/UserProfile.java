@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -22,10 +23,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "UserProfile")
 @XmlRootElement
+@SequenceGenerator(name = "seqUser", initialValue = 1)
 public class UserProfile {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seqUser")
     @Column(name = "userProfileId", length = 256, updatable = false,
             nullable = false)
     private Integer userProfileId;

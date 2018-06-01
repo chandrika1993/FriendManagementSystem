@@ -86,7 +86,7 @@ public class FriendCreationServiceImpl implements FriendCreationService {
                                 throw new TechnicalException(
                                         FriendsConstants.UNAUTHORIZED_CODE,
                                         FriendsConstants.BLOCKED_STATUS,
-                                        FriendsConstants.UNAUTHORIZED,
+                                        FriendsConstants.BLOCKED_STATUS,
                                         HttpStatus.UNAUTHORIZED, null);
                         }
                         for (Friends friends2 : listOfFriends) {
