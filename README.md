@@ -18,9 +18,10 @@ This is an application with a need to build its own social network, "Friends Man
 	3.	Allows easy integration of different tools on the deployed Application.
 	
 ## Deployment on PCF
- The Credentials for PCF account are as follows :
- Email ID- chandrika.a.mohan@capgemini.com
- Password- Pcf@1234
+###
+	The Credentials for PCF account are as follows :
+	Email ID- chandrika.a.mohan@capgemini.com
+	Password- Pcf@1234
 
 ## Database
 	Below is the simple SQL Design Diagram used for the application .
