@@ -76,9 +76,9 @@ This is an application with a need to build its own social network, "Friends Man
 		}
 
 	•	Defined Errors :
-			401 : Unauthorized Access -The two email addresses in the input are the same.
-			404 : Email Id not Found i.e. Persons given by the email do not exist.
-			504 : Occurs when Database Error occurs.
+				401 : Unauthorized Access -The two email addresses in the input are the same.
+				404 : Email Id not Found i.e. Persons given by the email do not exist.
+				504 : Occurs when Database Error occurs.
 	
 	3.	Returns list of common friends between two Email Ids.
 	
@@ -120,10 +120,10 @@ This is an application with a need to build its own social network, "Friends Man
 			{"success": true}
 	
 	•	Defined Errors :
-			401 : Unauthorized Access -The two emails in the json are same.
-			401 : Unauthorized Access -Blocked for Subscription.
-			404 : Email Id is not Found.
-			504 : Occurs when Database Error occurs.
+				401 : Unauthorized Access -The two emails in the json are same.
+				401 : Unauthorized Access -Blocked for Subscription.
+				404 : Email Id is not Found.
+				504 : Occurs when Database Error occurs.
 	
 	5.	Person block updates from another Person
 	
@@ -138,9 +138,9 @@ This is an application with a need to build its own social network, "Friends Man
 		{ "success": true }
 		
 	•	Defined Errors :
-			401 : Unauthorized Access - The two emails in the JSON are same.
-			404 : One of the Email Id not Found. 
-			504 : Occurs when Database Error occurs.
+				401 : Unauthorized Access - The two emails in the JSON are same.
+				404 : One of the Email Id not Found. 
+				504 : Occurs when Database Error occurs.
 
 	6.	Post an update which returns a list of emails that will receive the update.
 	
