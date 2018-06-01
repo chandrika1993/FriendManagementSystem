@@ -22,11 +22,16 @@ This is an application with a need to build its own social network, "Friends Man
 	The Credentials for PCF account are as follows :
 	Email ID- chandrika.a.mohan@capgemini.com
 	Password- Pcf@1234
+	
+	The following are the PCF Metrics statics -
+	
+![Db Script](../master/src/main/resources/pcf/PCF_Metrics.png)
+	
 
 ## Database
-	Below is the simple SQL Design Diagram used for the application.
+	Below is the simple ER Diagram used for the application.
 	
-![Db Script](../master/src/main/resources/sql/db_design/SQLDB_Design.png)
+![Db Script](../master/src/main/resources/sql/db_design/ER_Diagram.png)
 
 ## List of REST Endpoints and Explanation
 
