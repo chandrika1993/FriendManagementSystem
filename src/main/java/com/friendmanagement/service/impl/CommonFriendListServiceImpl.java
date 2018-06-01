@@ -117,6 +117,7 @@ public class CommonFriendListServiceImpl implements CommonFriendListService {
                 emailId.add(email);
             }
             if (emailId.get(0).equals(emailId.get(1))) {
+                informationDto.setSuccess(false);
                 throw new TechnicalException(FriendsConstants.UNAUTHORIZED_CODE,
                         FriendsConstants.SAME_EMAILS,
                         FriendsConstants.UNAUTHORIZED, HttpStatus.UNAUTHORIZED,
@@ -145,6 +146,7 @@ public class CommonFriendListServiceImpl implements CommonFriendListService {
                     }
                 }
                 if (listsFriends.isEmpty()) {
+                    informationDto.setSuccess(false);
                     throw new TechnicalException(
                             FriendsConstants.DATA_NOT_FOUND,
                             FriendsConstants.NO_COMMON_FRIENDS,

@@ -280,4 +280,62 @@ public class CommonFriendListServiceImplTest {
         Assert.assertEquals(false, this.commonFriendListService
                 .getCommonFriends(userProfileDto).isSuccess());
     }
+
+    /**
+     * Tests method getCommonFriends.
+     * 
+     * Expectation is that returned satusCode equals 401.
+     * 
+     * @throws TechnicalException
+     * 
+     */
+    @Test(expected = TechnicalException.class)
+    public void testGetCommonFriendsSameEmailsException1()
+            throws TechnicalException {
+        String emailId = "FSDFD";
+        UserProfileDto userProfileDto = new UserProfileDto();
+        Friends friends = new Friends();
+        friends.setEmailId(emailId);
+        List<String> listOfFriends = new ArrayList<>();
+        listOfFriends.add(friends.getEmailId());
+        listOfFriends.add(friends.getEmailId());
+        userProfileDto.setFriends(listOfFriends);
+        Assert.assertEquals(false, this.commonFriendListService
+                .getCommonFriends(userProfileDto).isSuccess());
+    }
+
+    /**
+     * Tests method getCommonFriends.
+     * 
+     * Expectation is that returned satusCode equals 401.
+     * 
+     * @throws TechnicalException
+     * 
+     */
+    @Test(expected = TechnicalException.class)
+    public void testGetCommonFriendsNoCommonFriends()
+            throws TechnicalException {
+        String emailId = "FSDFD";
+        UserProfileDto userProfileDto = new UserProfileDto();
+        UserProfile profile = new UserProfile();
+        Set<Friends> frnds = new HashSet<>();
+        Friends friends = new Friends();
+        Friends friends1 = new Friends();
+        friends1.setEmailId("dfsdf");
+        friends.setEmailId(emailId);
+        friends.setUserProfile(profile);
+        friends.setEmailId("afsdfsdF");
+        profile.setListOfFriends(frnds);
+        List<String> listOfFriends = new ArrayList<>();
+        listOfFriends.add(friends.getEmailId());
+        listOfFriends.add(friends1.getEmailId());
+        userProfileDto.setFriends(listOfFriends);
+        Mockito.when(
+                this.commonFriendListDao.getUserProfileTotalCount(anyString()))
+                .thenReturn(count);
+        Mockito.when(this.commonFriendListDao.getUserProfile(anyString()))
+                .thenReturn(profile);
+        Assert.assertEquals(false, this.commonFriendListService
+                .getCommonFriends(userProfileDto).isSuccess());
+    }
 }
