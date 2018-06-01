@@ -153,7 +153,6 @@ public class UpdatesServiceImplTest {
     public void testSubscribeForEmailUpdatesDataNotFound()
             throws TechnicalException {
         Long count = 0l;
-        successStatusDto.setSuccess(false);
         Mockito.when(this.updatesDao.countFindUsers(anyString()))
                 .thenReturn(count);
         Assert.assertEquals(false, this.updatesService
@@ -187,13 +186,13 @@ public class UpdatesServiceImplTest {
         UserProfile userProfile = new UserProfile();
         userProfile.setListOfFriends(listOfFriends);
         userProfile.setBlockList(blockList);
+        userProfile.setUserEmailId(email2);
         userProfile.setEmailSubscriptionList(emailSubscriptionList);
-        successStatusDto.setSuccess(true);
         Mockito.when(this.updatesDao.countFindUsers(anyString()))
                 .thenReturn(count);
         Mockito.when(this.updatesDao.findUsers(anyString()))
                 .thenReturn(userProfile);
-        Assert.assertEquals(true, this.updatesService
+        Assert.assertEquals(false, this.updatesService
                 .subscribeForEmailUpdates(subscriptionDto).isSuccess());
     }
 

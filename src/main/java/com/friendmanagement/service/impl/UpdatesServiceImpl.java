@@ -110,6 +110,11 @@ public class UpdatesServiceImpl implements UpdatesService {
                         successStatusDto.setSuccess(true);
                     }
                 }
+            } else {
+                throw new TechnicalException(FriendsConstants.DATA_NOT_FOUND,
+                        FriendsConstants.EMAIL_NOT_FOUND,
+                        FriendsConstants.DATA_NOT_FOUND, HttpStatus.NOT_FOUND,
+                        null);
             }
             log.debug("UpdatesServiceImpl subscribeForEmailUpdates :: End");
         } catch (PersistenceException | IllegalArgumentException e) {
