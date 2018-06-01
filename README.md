@@ -14,14 +14,8 @@ This is an application with a need to build its own social network, "Friends Man
 	
 ### Pivotal Cloud Foundry 
 	1.	PCF allows easy deployment of Applications on Cloud.
-	2.	Through PCF Metrics we can easily manage and analyse the load on the 			application.
+	2.	Through PCF Metrics we can easily manage and analyze the load on the application.
 	3.	Allows easy integration of different tools on the deployed Application.
-
-## Deployment to PCF
-
-
-
-
 
 ## Database
 	Below is the simple SQL Design Diagram used for the application .
