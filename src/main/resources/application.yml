@@ -1,5 +1,5 @@
 dbUsername: bda9339dc70914
-dbPassword: 870c33ad
-dbServerUrl: jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/friendmanagementsystem
+dbPassword: aa7e47102cf0b3a
+dbServerUrl: jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/ad_c1332a8ff7b1652
 dbDriverClass: com.mysql.cj.jdbc.Driver
 dbServerDialect: org.hibernate.dialect.MySQL5Dialect
