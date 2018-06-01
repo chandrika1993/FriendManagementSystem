@@ -1,11 +1,5 @@
 dbUsername: root
 dbPassword: root
-dbServerUrl: jdbc:mysql://localhost:3306/friendmanagementsystem?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
+dbServerUrl: jdbc:mysql://ec2-13-59-149-128.us-east-2.compute.amazonaws.com:3306/friendmanagementsystem
 dbDriverClass: com.mysql.jdbc.Driver
 dbServerDialect: org.hibernate.dialect.MySQL5Dialect
-
-//dbUsername: bc2769e99d21ee
-//dbPassword: 132c8ced
-//dbServerUrl: jdbc:mysql://us-cdbr-iron-east-04.cleardb.net:3306/ad_0b12cb465e9c716
-//dbDriverClass: com.mysql.cj.jdbc.Driver
-//dbServerDialect: org.hibernate.dialect.MySQL5Dialect
