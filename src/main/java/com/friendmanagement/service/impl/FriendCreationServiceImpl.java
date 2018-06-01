@@ -18,6 +18,7 @@ import com.friendmanagement.dao.FriendCreationDao;
 import com.friendmanagement.dto.SuccessStatusDto;
 import com.friendmanagement.dto.UserProfileDto;
 import com.friendmanagement.exception.TechnicalException;
+import com.friendmanagement.model.BlockStatus;
 import com.friendmanagement.model.Friends;
 import com.friendmanagement.model.UserProfile;
 import com.friendmanagement.service.FriendCreationService;
@@ -46,6 +47,9 @@ public class FriendCreationServiceImpl implements FriendCreationService {
             UserProfileDto userProfileDto) throws TechnicalException {
         log.debug("FriendsManagementServiceImpl createConnection :: Start");
         SuccessStatusDto successStatusDto = new SuccessStatusDto();
+        UserProfile userProfile = null;
+        int flag = 0;
+        Long count;
         try {
             List<UserProfile> friends = new ArrayList<>();
             for (int i = 0; i < userProfileDto.getFriends().size(); i++) {
@@ -64,19 +68,27 @@ public class FriendCreationServiceImpl implements FriendCreationService {
                     emails = userProfileDto.getFriends().get(1);
                 } else
                     emails = userProfileDto.getFriends().get(0);
-                UserProfile userProfile = null;
-                int flag = 0;
-                Long count;
                 count = this.friendsManagementDao.countFindUsers(userEmail);
                 if (count != 0l) {
                     userProfile =
                             this.friendsManagementDao.findUsers(userEmail);
                     Set<Friends> listOfFriends = null;
+                    Set<BlockStatus> listOfBlock = null;
                     if (userProfile != null) {
                         Friends frns = new Friends();
                         frns.setEmailId(emails);
                         frns.setUserProfile(userProfile);
                         listOfFriends = userProfile.getListOfFriends();
+                        listOfBlock = userProfile.getBlockList();
+                        for (BlockStatus blockStatus : listOfBlock) {
+                            successStatusDto.setSuccess(false);
+                            if (blockStatus.getEmailId().equals(emails))
+                                throw new TechnicalException(
+                                        FriendsConstants.UNAUTHORIZED_CODE,
+                                        FriendsConstants.BLOCKED_STATUS,
+                                        FriendsConstants.UNAUTHORIZED,
+                                        HttpStatus.UNAUTHORIZED, null);
+                        }
                         for (Friends friends2 : listOfFriends) {
                             if (friends2.getEmailId().equals(emails))
                                 flag++;

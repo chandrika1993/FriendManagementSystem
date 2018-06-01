@@ -23,6 +23,7 @@ import com.friendmanagement.dao.FriendCreationDao;
 import com.friendmanagement.dto.InformationDto;
 import com.friendmanagement.dto.UserProfileDto;
 import com.friendmanagement.exception.TechnicalException;
+import com.friendmanagement.model.BlockStatus;
 import com.friendmanagement.model.Friends;
 import com.friendmanagement.model.UserProfile;
 import com.friendmanagement.service.FriendCreationService;
@@ -51,8 +52,10 @@ public class FriendCreationServiceImplTest {
     private static String email = "abc@gmail.com";
     private static Set<String> list = new HashSet<>();
     private static Set<Friends> listOfFriends = new HashSet<>();
+    private static Set<BlockStatus> blockList = new HashSet<>();
     private static UserProfileDto userProfileDto = new UserProfileDto();
     private static InformationDto informationDto = new InformationDto();
+    private static BlockStatus blockStatus = new BlockStatus();
 
     private Long count = 1L;
 
@@ -64,6 +67,9 @@ public class FriendCreationServiceImplTest {
     public static void init() {
         listOfFriends.add(friends2);
         listOfFriends.addAll(friends);
+        blockStatus.setEmailId("qqq@gmail.com");
+        blockList.add(blockStatus);
+        userProfile.setBlockList(blockList);
         userProfile.setUserEmailId("xyz@gmail.com");
         userProfile.setListOfFriends(listOfFriends);
         userProfile.setEmailSubscriptionList(null);
@@ -161,6 +167,42 @@ public class FriendCreationServiceImplTest {
         informationDto.setSuccess(false);
         Assert.assertEquals(false, this.friendCreationService
                 .createFriendConnection(userProfileDto).isSuccess());
+    }
+
+    /**
+     * Tests method createFriendConnection.
+     * 
+     * Expectation is that returned satusCode equals 401.
+     * 
+     * @throws TechnicalException
+     * 
+     */
+    @Test(expected = TechnicalException.class)
+    public void testCreateFriendConnectionWhenBlocked()
+            throws TechnicalException {
+        UserProfile userProfile = new UserProfile();
+        BlockStatus blockStatus = new BlockStatus();
+        Set<Friends> listOfFriends = new HashSet<>();
+        Set<BlockStatus> blockList = new HashSet<>();
+        UserProfileDto userProfileDto = new UserProfileDto();
+        List<String> friends = new ArrayList<>();
+        friends.add("asdsad@gmail.com");
+        friends.add(email);
+        listOfFriends.add(friends2);
+        blockStatus.setEmailId(email);
+        blockList.add(blockStatus);
+        userProfile.setBlockList(blockList);
+        userProfile.setListOfFriends(listOfFriends);
+        userProfileDto.setFriends(friends);
+        Mockito.when(this.friendsManagementDao.countFindUsers(anyString()))
+                .thenReturn(this.count);
+        Mockito.when(this.friendsManagementDao.findUsers(anyString()))
+                .thenReturn(userProfile);
+        Mockito.doNothing().when(this.friendsManagementDao)
+                .updateUser(any(UserProfile.class));
+        Assert.assertEquals(informationDto.isSuccess(),
+                this.friendCreationService
+                        .createFriendConnection(userProfileDto).isSuccess());
     }
 }
 
