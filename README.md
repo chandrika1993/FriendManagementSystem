@@ -16,11 +16,16 @@ This is an application with a need to build its own social network, "Friends Man
 	1.	PCF allows easy deployment of Applications on Cloud.
 	2.	Through PCF Metrics we can easily manage and analyze the load on the application.
 	3.	Allows easy integration of different tools on the deployed Application.
+	
+## Deployment on PCF
+ The Credentials for PCF account are as follows :
+ Email ID- chandrika.a.mohan@capgemini.com
+ Password- Pcf@1234
 
 ## Database
 	Below is the simple SQL Design Diagram used for the application .
 	
-![Db Script](https://github.com/chandrika1993/FriendManagementSystem/tree/master/src/main/resources/sql/db_design/SQLDB_Design.png)
+![Db Script](https://github.com/chandrika1993/FriendManagementSystem/tree/master/src/main/resources/sql/db_design/to/SQLDB_Design.png)
 
 ## List of REST Endpoints and Explanation
 
