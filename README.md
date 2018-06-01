@@ -24,9 +24,9 @@ This is an application with a need to build its own social network, "Friends Man
 	Password- Pcf@1234
 
 ## Database
-	Below is the simple SQL Design Diagram used for the application .
+	Below is the simple SQL Design Diagram used for the application.
 	
-![Db Script](https://github.com/chandrika1993/FriendManagementSystem/tree/master/src/main/resources/sql/db_design/to/SQLDB_Design.png)
+![Db Script](../master/src/main/resources/sql/db_design/SQLDB_Design.png)
 
 ## List of REST Endpoints and Explanation
 
