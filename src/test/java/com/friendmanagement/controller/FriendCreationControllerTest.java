@@ -64,8 +64,8 @@ public class FriendCreationControllerTest {
         Mockito.when(
                 this.friendsManagementService.createFriendConnection(any()))
                 .thenReturn(successStatusDto);
-        Assert.assertEquals(this.friendCreationController
-                .createFriendConnection(userProfileDto), responseEntity);
+        Assert.assertEquals(responseEntity, this.friendCreationController
+                .createFriendConnection(userProfileDto));
     }
 
     /**
@@ -82,10 +82,10 @@ public class FriendCreationControllerTest {
         Mockito.when(
                 this.friendsManagementService.createFriendConnection(any()))
                 .thenThrow(sendTechnicalException());
-        Assert.assertEquals(
+        Assert.assertEquals(HttpStatus.GATEWAY_TIMEOUT,
                 this.friendCreationController
-                        .createFriendConnection(userProfileDto).getStatusCode(),
-                HttpStatus.GATEWAY_TIMEOUT);
+                        .createFriendConnection(userProfileDto)
+                        .getStatusCode());
     }
 
     /**
@@ -103,10 +103,10 @@ public class FriendCreationControllerTest {
         Mockito.when(
                 this.friendsManagementService.createFriendConnection(any()))
                 .thenThrow(NullPointerException.class);
-        Assert.assertEquals(
+        Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,
                 this.friendCreationController
-                        .createFriendConnection(userProfileDto).getStatusCode(),
-                HttpStatus.INTERNAL_SERVER_ERROR);
+                        .createFriendConnection(userProfileDto)
+                        .getStatusCode());
     }
 
     /**

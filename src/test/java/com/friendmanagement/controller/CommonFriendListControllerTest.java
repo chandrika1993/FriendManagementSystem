@@ -61,9 +61,8 @@ public class CommonFriendListControllerTest {
     public void testGetFriendsSuccess() throws TechnicalException {
         Mockito.when(this.commonFriendListService.getFriends(any()))
                 .thenReturn(informationDto);
-        Assert.assertEquals(
-                this.commonFriendListController.getFriends(userProfileDto),
-                responseEntity);
+        Assert.assertEquals(responseEntity,
+                this.commonFriendListController.getFriends(userProfileDto));
     }
 
     /**
@@ -77,9 +76,9 @@ public class CommonFriendListControllerTest {
     public void testGetFriendsTechnicalException() throws TechnicalException {
         Mockito.when(this.commonFriendListService.getFriends(any()))
                 .thenThrow(sendTechnicalException());
-        Assert.assertEquals(this.commonFriendListController
-                .getFriends(userProfileDto).getStatusCode(),
-                HttpStatus.GATEWAY_TIMEOUT);
+        Assert.assertEquals(HttpStatus.GATEWAY_TIMEOUT,
+                this.commonFriendListController.getFriends(userProfileDto)
+                        .getStatusCode());
     }
 
     /**
@@ -94,9 +93,9 @@ public class CommonFriendListControllerTest {
     public void testGetFriendsException() throws TechnicalException {
         Mockito.when(this.commonFriendListService.getFriends(any()))
                 .thenThrow(NullPointerException.class);
-        Assert.assertEquals(this.commonFriendListController
-                .getFriends(userProfileDto).getStatusCode(),
-                HttpStatus.INTERNAL_SERVER_ERROR);
+        Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,
+                this.commonFriendListController.getFriends(userProfileDto)
+                        .getStatusCode());
     }
 
     /**
@@ -110,9 +109,8 @@ public class CommonFriendListControllerTest {
     public void testGetCommonFriendsSuccess() throws TechnicalException {
         Mockito.when(this.commonFriendListService.getCommonFriends(any()))
                 .thenReturn(informationDto);
-        Assert.assertEquals(this.commonFriendListController
-                .getCommonFriends(userProfileDto).getStatusCode(),
-                HttpStatus.OK);
+        Assert.assertEquals(HttpStatus.OK, this.commonFriendListController
+                .getCommonFriends(userProfileDto).getStatusCode());
     }
 
     /**
@@ -127,9 +125,9 @@ public class CommonFriendListControllerTest {
             throws TechnicalException {
         Mockito.when(this.commonFriendListService.getCommonFriends(any()))
                 .thenThrow(sendTechnicalException());
-        Assert.assertEquals(this.commonFriendListController
-                .getCommonFriends(userProfileDto).getStatusCode(),
-                HttpStatus.GATEWAY_TIMEOUT);
+        Assert.assertEquals(HttpStatus.GATEWAY_TIMEOUT,
+                this.commonFriendListController.getCommonFriends(userProfileDto)
+                        .getStatusCode());
     }
 
     /**
@@ -144,9 +142,9 @@ public class CommonFriendListControllerTest {
     public void testGetCommonFriendsException() throws TechnicalException {
         Mockito.when(this.commonFriendListService.getCommonFriends(any()))
                 .thenThrow(NullPointerException.class);
-        Assert.assertEquals(this.commonFriendListController
-                .getCommonFriends(userProfileDto).getStatusCode(),
-                HttpStatus.INTERNAL_SERVER_ERROR);
+        Assert.assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,
+                this.commonFriendListController.getCommonFriends(userProfileDto)
+                        .getStatusCode());
     }
 
     /**

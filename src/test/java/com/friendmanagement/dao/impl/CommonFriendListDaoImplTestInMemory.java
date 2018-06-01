@@ -59,8 +59,8 @@ public class CommonFriendListDaoImplTestInMemory {
     @Test
     public void testGetUserProfile() {
         this.commonFriendListDao.insertUserProfile(userProfile);
-        Assert.assertEquals(this.commonFriendListDao
-                .getUserProfile(userProfile.getUserEmailId()), userProfile);
+        Assert.assertEquals(userProfile, this.commonFriendListDao
+                .getUserProfile(userProfile.getUserEmailId()));
     }
 
     /**
@@ -78,8 +78,8 @@ public class CommonFriendListDaoImplTestInMemory {
         this.commonFriendListDao.insertUserProfile(userProfile);
         this.commonFriendListDao.insertFriendsProfile(friends);
         this.commonFriendListDao.insertUserProfile(userProfile);
-        Assert.assertEquals(this.commonFriendListDao
-                .getUserProfileTotalCount(userProfile.getUserEmailId()), count);
+        Assert.assertEquals(count, this.commonFriendListDao
+                .getUserProfileTotalCount(userProfile.getUserEmailId()));
     }
 }
 

@@ -98,10 +98,9 @@ public class FriendCreationServiceImplTest {
                 .thenReturn(userProfile);
         Mockito.doNothing().when(this.friendsManagementDao)
                 .updateUser(any(UserProfile.class));
-        Assert.assertEquals(
+        Assert.assertEquals(informationDto.isSuccess(),
                 this.friendCreationService
-                        .createFriendConnection(userProfileDto).isSuccess(),
-                informationDto.isSuccess());
+                        .createFriendConnection(userProfileDto).isSuccess());
     }
 
     /**
@@ -119,10 +118,9 @@ public class FriendCreationServiceImplTest {
                 .thenReturn(count);
         Mockito.doNothing().when(this.friendsManagementDao)
                 .insertUser(any(UserProfile.class));
-        Assert.assertEquals(
+        Assert.assertEquals(informationDto.isSuccess(),
                 this.friendCreationService
-                        .createFriendConnection(userProfileDto).isSuccess(),
-                informationDto.isSuccess());
+                        .createFriendConnection(userProfileDto).isSuccess());
     }
 
     /**
@@ -140,10 +138,8 @@ public class FriendCreationServiceImplTest {
         informationDto.setSuccess(false);
         Mockito.when(this.friendsManagementDao.countFindUsers(anyString()))
                 .thenThrow(PersistenceException.class);
-        Assert.assertEquals(
-                this.friendCreationService
-                        .createFriendConnection(userProfileDto).isSuccess(),
-                false);
+        Assert.assertEquals(false, this.friendCreationService
+                .createFriendConnection(userProfileDto).isSuccess());
     }
 
     /**
@@ -163,10 +159,8 @@ public class FriendCreationServiceImplTest {
         friends.add(email);
         userProfileDto.setFriends(friends);
         informationDto.setSuccess(false);
-        Assert.assertEquals(
-                this.friendCreationService
-                        .createFriendConnection(userProfileDto).isSuccess(),
-                false);
+        Assert.assertEquals(false, this.friendCreationService
+                .createFriendConnection(userProfileDto).isSuccess());
     }
 }
 

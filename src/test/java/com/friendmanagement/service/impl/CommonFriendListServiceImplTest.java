@@ -91,8 +91,8 @@ public class CommonFriendListServiceImplTest {
                 .thenReturn(this.count);
         Mockito.when(this.commonFriendListDao.getUserProfile(anyString()))
                 .thenReturn(userProfile);
-        Assert.assertEquals(this.commonFriendListService
-                .getFriends(userProfileDto).getFriends().size(), 1);
+        Assert.assertEquals(1, this.commonFriendListService
+                .getFriends(userProfileDto).getFriends().size());
     }
 
     /**
@@ -109,9 +109,9 @@ public class CommonFriendListServiceImplTest {
         Mockito.when(
                 this.commonFriendListDao.getUserProfileTotalCount(anyString()))
                 .thenReturn(count);
-        Assert.assertEquals(this.commonFriendListService
-                .getFriends(userProfileDto).getCount(),
-                informationDto.getCount());
+        Assert.assertEquals(informationDto.getCount(),
+                this.commonFriendListService.getFriends(userProfileDto)
+                        .getCount());
     }
 
     /**
@@ -131,8 +131,8 @@ public class CommonFriendListServiceImplTest {
                 .thenReturn(this.count);
         Mockito.when(this.commonFriendListDao.getUserProfile(anyString()))
                 .thenThrow(TechnicalException.class);
-        Assert.assertEquals(this.commonFriendListService
-                .getFriends(userProfileDto).isSuccess(), false);
+        Assert.assertEquals(false, this.commonFriendListService
+                .getFriends(userProfileDto).isSuccess());
     }
 
     /**
@@ -151,8 +151,8 @@ public class CommonFriendListServiceImplTest {
                 .thenReturn(this.count);
         Mockito.when(this.commonFriendListDao.getUserProfile(anyString()))
                 .thenThrow(PersistenceException.class);
-        Assert.assertEquals(this.commonFriendListService
-                .getFriends(userProfileDto).isSuccess(), false);
+        Assert.assertEquals(false, this.commonFriendListService
+                .getFriends(userProfileDto).isSuccess());
     }
 
     /**
@@ -172,8 +172,8 @@ public class CommonFriendListServiceImplTest {
                 .thenReturn(this.count);
         Mockito.when(this.commonFriendListDao.getUserProfile(anyString()))
                 .thenThrow(EmptyResultDataAccessException.class);
-        Assert.assertEquals(this.commonFriendListService
-                .getFriends(userProfileDto).isSuccess(), false);
+        Assert.assertEquals(false, this.commonFriendListService
+                .getFriends(userProfileDto).isSuccess());
     }
 
 
@@ -191,10 +191,9 @@ public class CommonFriendListServiceImplTest {
                 .thenReturn(this.count);
         Mockito.when(this.commonFriendListDao.getUserProfile(anyString()))
                 .thenReturn(userProfile);
-        Assert.assertEquals(
+        Assert.assertEquals(informationDto.getFriends().size(),
                 this.commonFriendListService.getCommonFriends(userProfileDto)
-                        .getFriends().size(),
-                informationDto.getFriends().size());
+                        .getFriends().size());
     }
 
     /**
@@ -214,9 +213,9 @@ public class CommonFriendListServiceImplTest {
                 .thenReturn(count);
         Mockito.when(this.commonFriendListDao.getUserProfile(anyString()))
                 .thenReturn(userProfile);
-        Assert.assertEquals(this.commonFriendListService
-                .getCommonFriends(userProfileDto).getCount(),
-                informationDto.getCount());
+        Assert.assertEquals(informationDto.getCount(),
+                this.commonFriendListService.getCommonFriends(userProfileDto)
+                        .getCount());
     }
 
     /**
@@ -236,8 +235,8 @@ public class CommonFriendListServiceImplTest {
                 .thenReturn(this.count);
         Mockito.when(this.commonFriendListDao.getUserProfile(anyString()))
                 .thenThrow(PersistenceException.class);
-        Assert.assertEquals(this.commonFriendListService
-                .getCommonFriends(userProfileDto).isSuccess(), false);
+        Assert.assertEquals(false, this.commonFriendListService
+                .getCommonFriends(userProfileDto).isSuccess());
     }
 
     /**
@@ -257,8 +256,8 @@ public class CommonFriendListServiceImplTest {
                 .thenReturn(this.count);
         Mockito.when(this.commonFriendListDao.getUserProfile(anyString()))
                 .thenThrow(EmptyResultDataAccessException.class);
-        Assert.assertEquals(this.commonFriendListService
-                .getCommonFriends(userProfileDto).isSuccess(), false);
+        Assert.assertEquals(false, this.commonFriendListService
+                .getCommonFriends(userProfileDto).isSuccess());
     }
 
     /**
@@ -278,7 +277,7 @@ public class CommonFriendListServiceImplTest {
                 .thenReturn(this.count);
         Mockito.when(this.commonFriendListDao.getUserProfile(anyString()))
                 .thenThrow(TechnicalException.class);
-        Assert.assertEquals(this.commonFriendListService
-                .getCommonFriends(userProfileDto).isSuccess(), false);
+        Assert.assertEquals(false, this.commonFriendListService
+                .getCommonFriends(userProfileDto).isSuccess());
     }
 }

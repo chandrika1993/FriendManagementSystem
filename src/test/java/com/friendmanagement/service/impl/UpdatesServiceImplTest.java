@@ -100,9 +100,8 @@ public class UpdatesServiceImplTest {
                 .thenReturn(this.count);
         Mockito.when(this.updatesDao.findUsers(anyString()))
                 .thenReturn(userProfile);
-        Assert.assertEquals(this.updatesService
-                .subscribeForEmailUpdates(subscriptionDto).isSuccess(),
-                successStatusDto.isSuccess());
+        Assert.assertEquals(successStatusDto.isSuccess(), this.updatesService
+                .subscribeForEmailUpdates(subscriptionDto).isSuccess());
     }
 
     /**
@@ -119,9 +118,8 @@ public class UpdatesServiceImplTest {
         subscriptionDto.setRequestor(emailId);
         subscriptionDto.setTarget(emailId);
         successStatusDto.setSuccess(false);
-        Assert.assertEquals(this.updatesService
-                .subscribeForEmailUpdates(subscriptionDto).isSuccess(),
-                successStatusDto.isSuccess());
+        Assert.assertEquals(successStatusDto.isSuccess(), this.updatesService
+                .subscribeForEmailUpdates(subscriptionDto).isSuccess());
     }
 
     /**
@@ -139,8 +137,8 @@ public class UpdatesServiceImplTest {
         successStatusDto.setSuccess(false);
         Mockito.when(this.updatesDao.countFindUsers(anyString()))
                 .thenThrow(IllegalArgumentException.class);
-        Assert.assertEquals(this.updatesService
-                .subscribeForEmailUpdates(subscriptionDto).isSuccess(), false);
+        Assert.assertEquals(false, this.updatesService
+                .subscribeForEmailUpdates(subscriptionDto).isSuccess());
     }
 
     /**
@@ -158,8 +156,8 @@ public class UpdatesServiceImplTest {
         successStatusDto.setSuccess(false);
         Mockito.when(this.updatesDao.countFindUsers(anyString()))
                 .thenReturn(count);
-        Assert.assertEquals(this.updatesService
-                .subscribeForEmailUpdates(subscriptionDto).isSuccess(), false);
+        Assert.assertEquals(false, this.updatesService
+                .subscribeForEmailUpdates(subscriptionDto).isSuccess());
     }
 
     /**
@@ -191,8 +189,8 @@ public class UpdatesServiceImplTest {
                 .thenReturn(count);
         Mockito.when(this.updatesDao.findUsers(anyString()))
                 .thenReturn(userProfile);
-        Assert.assertEquals(this.updatesService
-                .subscribeForEmailUpdates(subscriptionDto).isSuccess(), true);
+        Assert.assertEquals(true, this.updatesService
+                .subscribeForEmailUpdates(subscriptionDto).isSuccess());
     }
 
 
@@ -217,8 +215,8 @@ public class UpdatesServiceImplTest {
                 .thenReturn(this.count);
         Mockito.when(this.updatesDao.findUsers(anyString()))
                 .thenThrow(PersistenceException.class);
-        Assert.assertEquals(this.updatesService
-                .subscribeForEmailUpdates(subscriptionDto).isSuccess(), false);
+        Assert.assertEquals(false, this.updatesService
+                .subscribeForEmailUpdates(subscriptionDto).isSuccess());
     }
 
     /**
@@ -238,9 +236,8 @@ public class UpdatesServiceImplTest {
                 .thenReturn(this.count);
         Mockito.when(this.updatesDao.findUsers(anyString()))
                 .thenReturn(userProfile);
-        Assert.assertEquals(
-                this.updatesService.blockUpdates(subscriptionDto).isSuccess(),
-                informationDto.isSuccess());
+        Assert.assertEquals(informationDto.isSuccess(),
+                this.updatesService.blockUpdates(subscriptionDto).isSuccess());
     }
 
     /**
@@ -256,9 +253,8 @@ public class UpdatesServiceImplTest {
         subscriptionDto.setRequestor(emailId);
         subscriptionDto.setTarget(emailId);
         informationDto.setSuccess(false);
-        Assert.assertEquals(
-                this.updatesService.blockUpdates(subscriptionDto).isSuccess(),
-                informationDto.isSuccess());
+        Assert.assertEquals(informationDto.isSuccess(),
+                this.updatesService.blockUpdates(subscriptionDto).isSuccess());
     }
 
     /**
@@ -275,9 +271,8 @@ public class UpdatesServiceImplTest {
         informationDto.setSuccess(false);
         Mockito.when(this.updatesDao.countFindUsers(anyString()))
                 .thenReturn(count);
-        Assert.assertEquals(
-                this.updatesService.blockUpdates(subscriptionDto).isSuccess(),
-                false);
+        Assert.assertEquals(false,
+                this.updatesService.blockUpdates(subscriptionDto).isSuccess());
     }
 
     /**
@@ -301,9 +296,8 @@ public class UpdatesServiceImplTest {
                 .thenReturn(this.count);
         Mockito.when(this.updatesDao.findUsers(anyString()))
                 .thenThrow(PersistenceException.class);
-        Assert.assertEquals(
-                this.updatesService.blockUpdates(subscriptionDto).isSuccess(),
-                false);
+        Assert.assertEquals(false,
+                this.updatesService.blockUpdates(subscriptionDto).isSuccess());
     }
 
     /**
@@ -324,9 +318,8 @@ public class UpdatesServiceImplTest {
                 .thenReturn(this.count);
         Mockito.when(this.updatesDao.findUsers(anyString()))
                 .thenReturn(userProfile);
-        Assert.assertEquals(this.updatesService
-                .getEmailsWithSubscription(blockDto).isSuccess(),
-                successStatusDto.isSuccess());
+        Assert.assertEquals(successStatusDto.isSuccess(), this.updatesService
+                .getEmailsWithSubscription(blockDto).isSuccess());
     }
 
     /**
@@ -344,8 +337,8 @@ public class UpdatesServiceImplTest {
         successStatusDto.setSuccess(false);
         Mockito.when(this.updatesDao.countFindUsers(anyString()))
                 .thenThrow(PersistenceException.class);
-        Assert.assertEquals(this.updatesService
-                .getEmailsWithSubscription(blockDto).isSuccess(), false);
+        Assert.assertEquals(false, this.updatesService
+                .getEmailsWithSubscription(blockDto).isSuccess());
     }
 
     /**
@@ -381,8 +374,8 @@ public class UpdatesServiceImplTest {
                 .thenReturn(count);
         Mockito.when(this.updatesDao.findUsers(anyString()))
                 .thenReturn(userProfile);
-        Assert.assertEquals(this.updatesService
-                .getEmailsWithSubscription(blockDto).isSuccess(), false);
+        Assert.assertEquals(false, this.updatesService
+                .getEmailsWithSubscription(blockDto).isSuccess());
     }
 
     /**
@@ -400,7 +393,7 @@ public class UpdatesServiceImplTest {
         successStatusDto.setSuccess(false);
         Mockito.when(this.updatesDao.countFindUsers(anyString()))
                 .thenReturn(count);
-        Assert.assertEquals(this.updatesService
-                .getEmailsWithSubscription(blockDto).isSuccess(), false);
+        Assert.assertEquals(false, this.updatesService
+                .getEmailsWithSubscription(blockDto).isSuccess());
     }
 }

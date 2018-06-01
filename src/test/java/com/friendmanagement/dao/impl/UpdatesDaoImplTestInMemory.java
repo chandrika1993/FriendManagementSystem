@@ -49,9 +49,8 @@ public class UpdatesDaoImplTestInMemory {
         UserProfile userProfile = new UserProfile();
         userProfile.setUserEmailId("abc@gmail.com");
         this.updatesDao.insertUserProfile(userProfile);
-        Assert.assertEquals(
-                this.updatesDao.countFindUsers(userProfile.getUserEmailId()),
-                count);
+        Assert.assertEquals(count,
+                this.updatesDao.countFindUsers(userProfile.getUserEmailId()));
     }
 
     /**
@@ -64,9 +63,8 @@ public class UpdatesDaoImplTestInMemory {
         UserProfile userProfile = new UserProfile();
         userProfile.setUserEmailId("abc@gmail.com");
         this.updatesDao.insertUserProfile(userProfile);
-        Assert.assertEquals(
-                this.updatesDao.findUsers(userProfile.getUserEmailId()),
-                userProfile);
+        Assert.assertEquals(userProfile,
+                this.updatesDao.findUsers(userProfile.getUserEmailId()));
     }
 
     /**
@@ -80,9 +78,8 @@ public class UpdatesDaoImplTestInMemory {
         UserProfile userProfile = new UserProfile();
         userProfile.setUserEmailId("abc@gmail.com");
         this.updatesDao.subscribeForEmailUpdates(userProfile);
-        Assert.assertEquals(
-                this.updatesDao.countFindUsers(userProfile.getUserEmailId()),
-                count);
+        Assert.assertEquals(count,
+                this.updatesDao.countFindUsers(userProfile.getUserEmailId()));
     }
 
     /**
@@ -96,8 +93,7 @@ public class UpdatesDaoImplTestInMemory {
         UserProfile userProfile = new UserProfile();
         userProfile.setUserEmailId("abc@gmail.com");
         this.updatesDao.blockUpdates(userProfile);
-        Assert.assertEquals(
-                this.updatesDao.countFindUsers(userProfile.getUserEmailId()),
-                count);
+        Assert.assertEquals(count,
+                this.updatesDao.countFindUsers(userProfile.getUserEmailId()));
     }
 }

@@ -61,8 +61,8 @@ public class FriendCreationDaoImplTestInMemory {
         UserProfile userProfile = new UserProfile();
         userProfile.setUserEmailId("abc@gmail.com");
         this.friendCreationDao.insertUser(userProfile);
-        Assert.assertEquals(this.friendCreationDao
-                .countFindUsers(userProfile.getUserEmailId()), count);
+        Assert.assertEquals(count, this.friendCreationDao
+                .countFindUsers(userProfile.getUserEmailId()));
     }
 
     /**
@@ -75,9 +75,8 @@ public class FriendCreationDaoImplTestInMemory {
         UserProfile userProfile = new UserProfile();
         userProfile.setUserEmailId("abc@gmail.com");
         this.friendCreationDao.insertUser(userProfile);
-        Assert.assertEquals(
-                this.friendCreationDao.findUsers(userProfile.getUserEmailId()),
-                userProfile);
+        Assert.assertEquals(userProfile,
+                this.friendCreationDao.findUsers(userProfile.getUserEmailId()));
     }
 
     /**
@@ -90,7 +89,7 @@ public class FriendCreationDaoImplTestInMemory {
         Long count = 1L;
         userProfile.setUserEmailId("abc@gmail.com");
         this.friendCreationDao.updateUser(userProfile);
-        Assert.assertEquals(this.friendCreationDao
-                .countFindUsers(userProfile.getUserEmailId()), count);
+        Assert.assertEquals(count, this.friendCreationDao
+                .countFindUsers(userProfile.getUserEmailId()));
     }
 }
