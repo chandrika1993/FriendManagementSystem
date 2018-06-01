@@ -1,5 +1,5 @@
-dbUsername: root
-dbPassword: root
-dbServerUrl: jdbc:mysql://ec2-13-59-149-128.us-east-2.compute.amazonaws.com:3306/friendmanagementsystem
+dbUsername: bda9339dc70914
+dbPassword: 870c33ad
+dbServerUrl: jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/friendmanagementsystem
 dbDriverClass: com.mysql.cj.jdbc.Driver
 dbServerDialect: org.hibernate.dialect.MySQL5Dialect
