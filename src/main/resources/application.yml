@@ -1,5 +1,5 @@
-dbUsername: bda9339dc70914
-dbPassword: aa7e47102cf0b3a
-dbServerUrl: jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/ad_c1332a8ff7b1652
+dbUsername: b816da2c32ad51
+dbPassword: a1bc6465
+dbServerUrl: jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/ad_6bc4d13c46fbd3f
 dbDriverClass: com.mysql.cj.jdbc.Driver
 dbServerDialect: org.hibernate.dialect.MySQL5Dialect

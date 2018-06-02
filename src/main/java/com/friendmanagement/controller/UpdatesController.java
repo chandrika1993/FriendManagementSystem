@@ -119,7 +119,7 @@ public class UpdatesController {
     }
 
     /**
-     * Rest end Point to get list of Emails with can receive updates from an
+     * Rest end Point to get list of Email's with can receive updates from an
      * email address.
      * 
      * @return ResponseEntity response

@@ -94,6 +94,7 @@ public class UpdatesServiceImpl implements UpdatesService {
                                 HttpStatus.UNAUTHORIZED, null);
                     }
                 }
+                int flag=0;                
                 Set<Subscription> subscriptions = null;
                 subscription.setSubscriptionStatus('Y');
                 subscription.setEmailId(userProfileTarget.getUserEmailId());
@@ -101,15 +102,18 @@ public class UpdatesServiceImpl implements UpdatesService {
                 emailSubscriptionList.add(subscription);
                 subscriptions = userProfileRequestor.getEmailSubscriptionList();
                 for (Subscription subscription2 : subscriptions) {
-                    if (!subscription2.getEmailId()
+                    if (subscription2.getEmailId()
                             .equals(subscriptionDto.getTarget())) {
-                        userProfileRequestor.setEmailSubscriptionList(
-                                emailSubscriptionList);
-                        this.updatesDao
-                                .subscribeForEmailUpdates(userProfileRequestor);
-                        successStatusDto.setSuccess(true);
-                    }
+                    	flag++;
+                                           }
                 }
+                if(flag==0) {
+                	userProfileRequestor.setEmailSubscriptionList(
+                            emailSubscriptionList);
+                    this.updatesDao
+                            .subscribeForEmailUpdates(userProfileRequestor);                    
+                }
+                successStatusDto.setSuccess(true);
             } else {
                 throw new TechnicalException(FriendsConstants.DATA_NOT_FOUND,
                         FriendsConstants.EMAIL_NOT_FOUND,
