@@ -172,4 +172,4 @@ This is an application with a need to build its own social network, "Friends Man
 
 	The following is the JUnit Code Coverage.
 
-![Db Script](../master/src/main/resources/Junit_Stats/Junit_Coverage.png)
+![Db Script](../master/src/main/resources/Junit_Stats/Junit_Coverage.PNG)
