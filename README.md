@@ -19,7 +19,8 @@ This is an application with a need to build its own social network, "Friends Man
 	
 ## Deployment on PCF
 ###
-	The Route for Deployment is  - 			https://friend-management-system.cfapps.io/friendmanagementservice/
+	The Route for Deployment is - 
+			https://friend-management-system.cfapps.io/friendmanagementservice/
 	
 	For example: To access /createFriendConnection endpoint, the URL should be:
 			https://friend-management-system.cfapps.io/friendmanagementservice/createFriendConnection
@@ -61,7 +62,7 @@ This is an application with a need to build its own social network, "Friends Man
 
 	•	Input :
 		{
-				"friends":[“example@gmail.com”]
+			"friends":[“example@gmail.com”]
 		}
 	
 	•	Output :
@@ -85,7 +86,7 @@ This is an application with a need to build its own social network, "Friends Man
 	
 		•	Input :
 			{
-						"friends":["example@gmail.com","abc@gmail.com"]
+				"friends":["example@gmail.com","abc@gmail.com"]
 			}
 			
 		•	Output :
