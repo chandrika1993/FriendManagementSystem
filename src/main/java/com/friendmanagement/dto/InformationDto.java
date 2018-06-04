@@ -2,6 +2,9 @@ package com.friendmanagement.dto;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+
 /**
  * <PRE>
  * Class name       : InformationDto
@@ -9,6 +12,7 @@ import java.util.Set;
  * Author           : Capgemini.
  * </PRE>
  */
+@JsonAutoDetect(fieldVisibility = Visibility.ANY)
 public class InformationDto {
 
     private boolean success;
