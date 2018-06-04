@@ -41,7 +41,7 @@ This is an application with a need to build its own social network, "Friends Man
 
 ## List of REST Endpoints and Explanation
 
-	1.	Creates Friend Connection between two emails specified within friends set.
+	1.	Creates Friend Connection between two Email's specified within friends set.
 
 	•	Path : /createFriendConnection
 	
@@ -56,7 +56,7 @@ This is an application with a need to build its own social network, "Friends Man
 	•	Defined Errors :
 				504 : Occurs when Database Error occurs.
 
-	2.	Returns list of friends for an Email Id.
+	2.	Returns list of friends for an Email Id within friends set.
 
 	•	Path : /getFriends
 
@@ -76,11 +76,10 @@ This is an application with a need to build its own social network, "Friends Man
 		}
 
 	•	Defined Errors :
-				401 : Unauthorized Access -The two email addresses in the input are the same.
 				404 : Email Id not Found i.e. Persons given by the email do not exist.
 				504 : Occurs when Database Error occurs.
 	
-	3.	Returns list of common friends between two Email Ids.
+	3.	Returns list of common friends between two Email Id's within friends set.
 	
 		•	Path : /getCommonFriends
 	
@@ -99,7 +98,7 @@ This is an application with a need to build its own social network, "Friends Man
 			"count":2
 			}
 		•	Defined Errors :
-				401 : Unauthorized Access - The two emails in the json are same.
+				401 : Unauthorized Access - The two Email's in the json are same.
 				404 : Email Id not Found i.e. Persons given by the email do not exist.
 				504 : Occurs when Database Error occurs.
 	
@@ -117,7 +116,7 @@ This is an application with a need to build its own social network, "Friends Man
 				{	"success": true}
 	
 	•	Defined Errors :
-				401 : Unauthorized Access -The two emails in the json are same.
+				401 : Unauthorized Access -The two Email's in the json are same.
 				401 : Unauthorized Access -Blocked for Subscription.
 				404 : Email Id is not Found.
 				504 : Occurs when Database Error occurs.
@@ -135,11 +134,11 @@ This is an application with a need to build its own social network, "Friends Man
 			{ 	"success": true }
 		
 	•	Defined Errors :
-				401 : Unauthorized Access - The two emails in the JSON are same.
+				401 : Unauthorized Access - The two Email's in the JSON are same.
 				404 : One of the Email Id not Found. 
 				504 : Occurs when Database Error occurs.
 
-	6.	Post an update which returns a list of emails that will receive the update.
+	6.	Post an update which returns a list of Email's that will receive the update.
 	
 	•	Path : /getEmailsWithSubscription
 		
@@ -161,7 +160,7 @@ This is an application with a need to build its own social network, "Friends Man
 		
 	•	Defined Errors :
 				404 : Email Id is not Found 
-				401 : Unauthorized Access for Emails which are Blocked for Subscription.
+				401 : Unauthorized Access for Email's which are Blocked for Subscription.
 				504 : Occurs when Database Error occurs.
 
 
