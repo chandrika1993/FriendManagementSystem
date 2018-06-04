@@ -51,7 +51,7 @@ This is an application with a need to build its own social network, "Friends Man
 		{	"success": true }
 	
 	•	Defined Errors :
-			504 : Occurs when Database Error occurs.
+				504 : Occurs when Database Error occurs.
 
 	2.	Returns list of friends for an Email Id.
 
