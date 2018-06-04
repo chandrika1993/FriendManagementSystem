@@ -35,9 +35,14 @@ This is an application with a need to build its own social network, "Friends Man
 	
 
 ## Database
+
 	Below is the simple ER Diagram used for the application.
 	
 ![Db Script](../master/src/main/resources/sql/db_design/ER_Diagram.png)
+
+	The Database is pre populated with 10 persons for testing purpose, also the data can be found 	from the SQL script file which is placed inside the code repository.
+
+![Db Script](../master/src/main/resources/sql/scripts/SQL_Script.sql)
 
 ## List of REST Endpoints and Explanation
 
@@ -163,7 +168,4 @@ This is an application with a need to build its own social network, "Friends Man
 				401 : Unauthorized Access for Email's which are Blocked for Subscription.
 				504 : Occurs when Database Error occurs.
 
-## Database
-	The Database is pre populated with 10 persons for testing purpose, also the data can be found 	from the SQL script file which is placed inside the code repository.
-
-	![Db Script](../master/src/main/resources/sql/scripts/SQL_Script.sql)
+	
