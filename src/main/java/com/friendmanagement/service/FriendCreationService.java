@@ -2,7 +2,6 @@ package com.friendmanagement.service;
 
 import com.friendmanagement.dto.SuccessStatusDto;
 import com.friendmanagement.dto.UserProfileDto;
-import com.friendmanagement.exception.FunctionalException;
 import com.friendmanagement.exception.TechnicalException;
 
 /**
