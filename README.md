@@ -1,4 +1,4 @@
-# FriendManagementSystem
+# Friend Management System
 This is an application with a need to build its own social network, "Friends Management" is a common requirement which usually starts off simple but can grow in complexity depending on the application's use case. Usually, the application comprised of features like "Friend", "Unfriend", "Block", "Receive Updates" etc.
 
 ## Technology Choice
@@ -47,7 +47,7 @@ This is an application with a need to build its own social network, "Friends Man
 	
 	•	Input :
 		{
-			"friends":["example@gmail.com","abc@gmail.com"]
+			"friends":["test1@gmail.com","test2@gmail.com"]
 		}
 
 	•	Sample Output :
@@ -62,15 +62,15 @@ This is an application with a need to build its own social network, "Friends Man
 
 	•	Input :
 		{
-			"friends":[“example@gmail.com”]
+			"friends":[“test1@gmail.com”]
 		}
 	
 	•	Output :
 		{
 		"success": true,
 		"friends":[
-			"abc@gmail.com",
-			"xyz@gmail.com"
+			"test2@gmail.com",
+			"test3@gmail.com"
 		],
 		"count":2
 		}
@@ -85,7 +85,7 @@ This is an application with a need to build its own social network, "Friends Man
 	
 		•	Input :
 			{
-				"friends":["example@gmail.com","abc@gmail.com"]
+				"friends":["test1@gmail.com","test2@gmail.com"]
 			}
 			
 		•	Output :
@@ -98,9 +98,9 @@ This is an application with a need to build its own social network, "Friends Man
 			"count":2
 			}
 		•	Defined Errors :
-				401 : Unauthorized Access - The two Email's in the json are same.
-				404 : Email Id not Found i.e. Persons given by the email do not exist.
-				504 : Occurs when Database Error occurs.
+					401 : Unauthorized Access - The two Email's in the JSON are same.
+					404 : Email Id not Found i.e. Persons given by the email do not exist.
+					504 : Occurs when Database Error occurs.
 	
 	4.	Person subscribe for Email Updates from another Person
 	
@@ -113,10 +113,10 @@ This is an application with a need to build its own social network, "Friends Man
 			}
 	
 		•	Output :
-				{	"success": true}
+				{	"success": true		}
 	
 	•	Defined Errors :
-				401 : Unauthorized Access -The two Email's in the json are same.
+				401 : Unauthorized Access -The two Email's in the JSON are same.
 				401 : Unauthorized Access -Blocked for Subscription.
 				404 : Email Id is not Found.
 				504 : Occurs when Database Error occurs.
@@ -126,12 +126,12 @@ This is an application with a need to build its own social network, "Friends Man
 	•	Path : /blockUpdates
 	
 	•	Input :
-			{
-				"requestor":"example1@example.com",
-				"target":"example2@example.com"
-			}
+		{
+			"requestor":"example1@example.com",
+			"target":"example2@example.com"
+		}
 	•	Output :
-			{ 	"success": true }
+		{ 	"success": true 	}
 		
 	•	Defined Errors :
 				401 : Unauthorized Access - The two Email's in the JSON are same.
@@ -145,7 +145,7 @@ This is an application with a need to build its own social network, "Friends Man
 	•	Input :
 		{
 			"sender":"abc@gmail.com",
-			"target":"Hello, how are you ! xyz@gmail.com"
+		 	"target":"Hello, how are you ! xyz@gmail.com"
 		}
 		
 	•	Output :
