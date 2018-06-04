@@ -168,4 +168,8 @@ This is an application with a need to build its own social network, "Friends Man
 				401 : Unauthorized Access for Email's which are Blocked for Subscription.
 				504 : Occurs when Database Error occurs.
 
-	
+## JUnit Code Coverage of REST Endpoints.
+
+	The following is the JUnit Code Coverage.
+
+![Db Script](../master/src/main/resources/Junit_Stats/Junit_Coverage.png)
