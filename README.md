@@ -19,9 +19,14 @@ This is an application with a need to build its own social network, "Friends Man
 	
 ## Deployment on PCF
 ###
+	The Route for Deployment is  - 			https://friend-management-system.cfapps.io/friendmanagementservice/
+	
+	For example: To access /createFriendConnection endpoint, the URL should be:
+			https://friend-management-system.cfapps.io/friendmanagementservice/createFriendConnection
+
 	The Credentials for PCF account are as follows :
-	Email ID- chandrika.a.mohan@capgemini.com
-	Password- Pcf@1234
+			Email ID- chandrika.a.mohan@capgemini.com
+			Password- Pcf@1234
 	
 	The following are the PCF Metrics statics -
 	
@@ -41,10 +46,7 @@ This is an application with a need to build its own social network, "Friends Man
 	
 	•	Input :
 		{
-		"userName":"example",
-		"emailId":" example@gmail.com",
-		"contactNo":"453457834",
-		"friends":["example@gmail.com","abc@gmail.com"]
+			"friends":["example@gmail.com","abc@gmail.com"]
 		}
 
 	•	Sample Output :
@@ -59,10 +61,7 @@ This is an application with a need to build its own social network, "Friends Man
 
 	•	Input :
 		{
-		"userName":"example",
-		"emailId":" example@gmail.com",
-		"contactNo":"453457834",
-		"friends":[“example@gmail.com”]
+				"friends":[“example@gmail.com”]
 		}
 	
 	•	Output :
@@ -86,10 +85,7 @@ This is an application with a need to build its own social network, "Friends Man
 	
 		•	Input :
 			{
-			"userName":"example",
-			"emailId":" example@gmail.com",
-			"contactNo":"453457834",
-			"friends":["example@gmail.com","abc@gmail.com"]
+						"friends":["example@gmail.com","abc@gmail.com"]
 			}
 			
 		•	Output :
@@ -112,12 +108,12 @@ This is an application with a need to build its own social network, "Friends Man
 	
 		•	Input :
 			{
-			"requestor":"abc@gmail.com",
-			"target":"xyz@gmail.com"
+				"requestor":"abc@gmail.com",
+				"target":"xyz@gmail.com"
 			}
 	
 		•	Output :
-			{"success": true}
+				{	"success": true}
 	
 	•	Defined Errors :
 				401 : Unauthorized Access -The two emails in the json are same.
@@ -130,12 +126,12 @@ This is an application with a need to build its own social network, "Friends Man
 	•	Path : /blockUpdates
 	
 	•	Input :
-		{
-		"requestor":"example1@example.com",
-		"target":"example2@example.com"
-		}
+			{
+				"requestor":"example1@example.com",
+				"target":"example2@example.com"
+			}
 	•	Output :
-		{ "success": true }
+			{ 	"success": true }
 		
 	•	Defined Errors :
 				401 : Unauthorized Access - The two emails in the JSON are same.
@@ -148,18 +144,18 @@ This is an application with a need to build its own social network, "Friends Man
 		
 	•	Input :
 		{
-		"sender":"abc@gmail.com",
-		"target":"Hello, how are you ! xyz@gmail.com"
+			"sender":"abc@gmail.com",
+			"target":"Hello, how are you ! xyz@gmail.com"
 		}
 		
 	•	Output :
 		{
-		"success": true,
-		"friends":[
-			"xyz@gmail.com",
-			"pqr@gmail.com"			
-		],
-		"count":2
+			"success": true,
+			"friends":[
+				"xyz@gmail.com",
+				"pqr@gmail.com"			
+					],
+			"count":2
 		}
 		
 	•	Defined Errors :
