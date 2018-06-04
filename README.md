@@ -38,11 +38,11 @@ This is an application with a need to build its own social network, "Friends Man
 
 	Below is the simple ER Diagram used for the application.
 	
-![Db Script](../master/src/main/resources/sql/db_design/ER_Diagram.png)
+	![Db Script](../master/src/main/resources/sql/db_design/ER_Diagram.png)
 
-	The Database is pre populated with 10 persons for testing purpose, also the data can be found 	from the SQL script file which is placed inside the code repository.
-
-![Db Script](../master/src/main/resources/sql/scripts/SQL_Script.sql)
+	The Database is pre populated with 10 persons for testing purpose, also the data 
+	can be found 	from the SQL script file which is placed inside the code repository.
+	![Db Script](../master/src/main/resources/sql/scripts/SQL_Script.sql)
 
 ## List of REST Endpoints and Explanation
 
