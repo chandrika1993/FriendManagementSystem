@@ -44,6 +44,12 @@ This is an application with a need to build its own social network, "Friends Man
 	can be found from the SQL script file which is placed inside the code repository.
 ![Db Script](../master/src/main/resources/sql/scripts/SQL_Script.sql)
 
+## Swagger
+
+	Run the Java code locally access the following swagger link to test the API's:
+	
+![Swagger](http://localhost:8080/swagger-ui.html)
+
 ## List of REST Endpoints and Explanation
 
 	1.	Creates Friend Connection between two Email's specified within friends set.
