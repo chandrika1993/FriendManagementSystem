@@ -47,8 +47,7 @@ This is an application with a need to build its own social network, "Friends Man
 ## Swagger
 
 	Run the Java code locally access the following swagger link to test the API's:
-	
-![Swagger](http://localhost:8080/swagger-ui.html)
+		http://localhost:8080/swagger-ui.html
 
 ## List of REST Endpoints and Explanation
 
