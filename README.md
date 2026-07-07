@@ -25,10 +25,6 @@ This is an application with a need to build its own social network, "Friends Man
 	For example: To access /createFriendConnection endpoint, the URL should be:
 			https://friend-management-system.cfapps.io/friendmanagementservice/createFriendConnection
 
-	The Credentials for PCF account are as follows :
-			Email ID- chandrika.a.mohan@capgemini.com
-			Password- Pcf@1234
-	
 	The following are the PCF Metrics statics -
 	
 ![Db Script](../master/src/main/resources/pcf/PCF_Metrics.png)
